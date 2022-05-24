@@ -6,12 +6,15 @@ import styles from '../styles/Home.module.css'
 import { useMoralis } from "react-moralis";
 
 import {
-  BodyCon, RandomizingHeader, SubHeader, PeopleBlobs
+  BodyCon, BodyHeaderCon, RandomizingHeader, SubHeader, PeopleBlobs, HomePageButtonConnectWallet, HomePageButtonConnectWalletInvert, 
+  
+  BodySectionCon, BodySectionHeader, BodySectionDescription,TimelineCon,  BodySectionImageCon
 } from "../components/HomePage/HomePageElements"
 
 import OrangeBlob from "../assets/People/Orange_Blob.png"
 import BlueBlob from "../assets/People/Blue_Blob.png"
 import PurpleBlob from "../assets/People/Purple_Blob.png"
+import DreamerImage from "../assets/SiteElements/dreamerslide.png"
 
 const wordArray = [
   'NFT project', 'Hackathon scholarship', 'Trip to ETHDenver', 'recording equipment', 'Guitar lessons', 'Word bank', 'economic justice', 'literacy program', 'Animation', 'Dream journal', 'Dream vaction', 'Dream job', 'Dream life', 'Data pipeline', 'Production guild bounty', 'Medical bills', 'School', 'College Tuition', 'Language lessons'
@@ -42,17 +45,53 @@ function Home () {
         </Head>
       </div>
       <BodyCon>
-        <RandomizingHeader>
-          a home for <span style={{fontWeight: "650"}}>anyone</span> to <span style={{fontWeight: "650"}}>fund their <span style={{textDecoration: "underline"}}>{randomItem}</span></span>
-        </RandomizingHeader>
-        <SubHeader>
-          don&apos;t let your <span style={{fontWeight: "650"}}>dreams</span> be <span style={{fontWeight: "650"}}>web3 memes</span>
-        </SubHeader>
-        <PeopleBlobs>
-          <Image src={OrangeBlob} height="250px" width="250px" alt="Person Blob"/>
-          <Image src={BlueBlob} height="250px" width="250px" alt="Person Blob"/>
-          <Image src={PurpleBlob} height="250px" width="250px" alt="Person Blob"/>
-        </PeopleBlobs>
+        <BodyHeaderCon>
+          <RandomizingHeader>
+            a home for <span style={{fontWeight: "650"}}>anyone</span> to <span style={{fontWeight: "650"}}>fund their <span style={{textDecoration: "underline"}}>{randomItem}</span></span>
+          </RandomizingHeader>
+          <SubHeader>
+            don&apos;t let your <span style={{fontWeight: "650"}}>dreams</span> be <span style={{fontWeight: "650"}}>web3 memes</span>
+          </SubHeader>
+          <SubHeader style={{
+              display: "inline-flex", 
+              textAlign: "center",
+              left: "50%",
+              position: "relative",
+              transform: "translate(-50%)",
+              marginTop: "50px"
+            }}>
+            <HomePageButtonConnectWallet onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using Metamask wallet with a gas-less, free transaction to access the dapp."})}>
+                get funds
+            </HomePageButtonConnectWallet>
+            <HomePageButtonConnectWalletInvert onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using Metamask wallet with a gas-less, free transaction to access the dapp."})}>
+                go fund
+            </HomePageButtonConnectWalletInvert>
+          </SubHeader>
+
+          <PeopleBlobs style={{marginBottom: "20px"}}>
+            <Image src={OrangeBlob} height="250px" width="250px" alt="Person Blob"/>
+            <Image src={BlueBlob} height="250px" width="250px" alt="Person Blob"/>
+            <Image src={PurpleBlob} height="250px" width="250px" alt="Person Blob"/>
+          </PeopleBlobs>
+        </BodyHeaderCon>
+
+        <BodySectionCon>
+          <BodySectionHeader>
+            are you a dreamer?  
+          </BodySectionHeader>
+          <BodySectionDescription>
+            Raising capital is hard, takes many months to a year, and is not guaranteed. With GoFundYourself, you pitch your idea to make the world a better place and get funded by a network of people who want to support you and your dreams
+          </BodySectionDescription>
+          <TimelineCon>
+            <h1>1</h1>
+            <h1>1</h1>
+            <h1>1</h1>
+          </TimelineCon>
+          <BodySectionImageCon>
+            <Image src={DreamerImage} alt="dreamer image" width="493" height="652"/>
+          </BodySectionImageCon>
+
+        </BodySectionCon>
       </BodyCon>
     </>
   )

@@ -7,7 +7,6 @@ export const NavBarCon = styled.div`
     top: 0;
     position: relative;
     background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(218,218,218,1) 49%, rgba(135,135,135,1) 100%);
     display: flex;
 `;
 
