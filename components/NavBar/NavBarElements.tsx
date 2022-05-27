@@ -25,7 +25,7 @@ export const NavBarLogo = styled.div`
 export const NavBarConnectWallet = styled.button`
     /* right: 0; */
     margin: 0 auto;
-    margin-right: 20px;
+    margin-right: 50px;
     padding: 20px;
     position: relative;
     font-size: 12pt;

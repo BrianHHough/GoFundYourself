@@ -11,10 +11,13 @@ import {
   BodySectionCon, BodySectionHeader, BodySectionDescription,TimelineCon,  BodySectionImageCon
 } from "../components/HomePage/HomePageElements"
 
+import ProjectCard from "../components/Projects/ProjectCard"
+
 import OrangeBlob from "../assets/People/Orange_Blob.png"
 import BlueBlob from "../assets/People/Blue_Blob.png"
 import PurpleBlob from "../assets/People/Purple_Blob.png"
 import DreamerImage from "../assets/SiteElements/dreamerslide.png"
+import Will from "../assets/People/memoji-will.png"
 
 const wordArray = [
   'NFT project', 'Hackathon scholarship', 'Trip to ETHDenver', 'recording equipment', 'Guitar lessons', 'Word bank', 'economic justice', 'literacy program', 'Animation', 'Dream journal', 'Dream vaction', 'Dream job', 'Dream life', 'Data pipeline', 'Production guild bounty', 'Medical bills', 'School', 'College Tuition', 'Language lessons'
@@ -83,10 +86,18 @@ function Home () {
             Raising capital is hard, takes many months to a year, and is not guaranteed. With GoFundYourself, you pitch your idea to make the world a better place and get funded by a network of people who want to support you and your dreams
           </BodySectionDescription>
           <TimelineCon>
-            <h1>1</h1>
+            <h1 style={{}}>1</h1>
             <h1>1</h1>
             <h1>1</h1>
           </TimelineCon>
+
+          <ProjectCard 
+            pfp={Will}
+            name={"Will"}
+            need={"better recording equipment"}
+            status={68}
+            link={"/123456"}
+          />
           <BodySectionImageCon>
             <Image src={DreamerImage} alt="dreamer image" width="493" height="652"/>
           </BodySectionImageCon>
