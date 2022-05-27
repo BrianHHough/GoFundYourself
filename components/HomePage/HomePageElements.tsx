@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Image from "next/image"
 
 export const BodyCon = styled.div`
   width: 100vw;
@@ -86,7 +87,7 @@ export const HomePageButtonConnectWalletInvert = styled.button`
 
 export const BodySectionCon = styled.div`
     height: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 250px;
 
     /* width: 100vw; */
 `;
@@ -145,4 +146,50 @@ export const ProjectCardButton = styled.div`
       transition: all 0.2s ease-in-out;
       transform: scale(1.1);
     }
+`;
+
+export const DiveInButton = styled.div`
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 4px solid black;
+    padding: 10px 10px 10px 10px;
+    width: 350px;
+    height: 60px;
+    font-size: 20pt;
+    font-weight: 650;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    background: black;
+    color: white;
+    &:hover {
+      background: #4d4d4d;
+      transition: all 0.2s ease-in-out;
+      transform: scale(1.1);
+    }
+`;
+
+export const TestimonialPersonCon = styled.div`
+    /* display: initial; */
+    text-align: center;
+    width: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
+`;
+
+export const TestimonialPersonImage = styled(Image)`
+    border-radius: 360px;
+    text-align: center;
+    background: #00FCB9;
+    /* left: 50%;
+    transform: translateX(-50%);
+    position: relative; */
+`;
+
+export const TestimonialText = styled.div`
+    font-size: 14pt;
+    text-align: center; 
+    width: 300px;
+    font-weight: 300;
 `;
