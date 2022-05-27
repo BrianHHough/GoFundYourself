@@ -24,9 +24,15 @@ function NavBar (): JSX.Element[] | any {
             <NavBarLogo>
                 GoFundYourself
             </NavBarLogo>
-            <NavBarConnectWallet onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using Metamask wallet with a gas-less, free transaction to access the dapp."})}>
+            {isAuthenticated ?
+            <NavBarConnectWallet onClick={logout}>
+            Log out
+            </NavBarConnectWallet>
+            :
+            <NavBarConnectWallet onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using your Metamask wallet with a gas-less, free transaction to tokenize yourself and others. LFG!"})}>
                 Connect Wallet
             </NavBarConnectWallet>
+            }
 
         </NavBarCon>
     )

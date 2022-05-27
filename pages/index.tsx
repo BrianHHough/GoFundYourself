@@ -8,7 +8,9 @@ import { useMoralis } from "react-moralis";
 import {
   BodyCon, BodyHeaderCon, RandomizingHeader, SubHeader, PeopleBlobs, HomePageButtonConnectWallet, HomePageButtonConnectWalletInvert, 
   
-  ProjectCardCon, BodySectionCon, BodySectionHeader, BodySectionDescription, ProjectCardButton, TimelineCon,  BodySectionImageCon
+  ProjectCardCon, BodySectionCon, BodySectionHeader, BodySectionDescription, ProjectCardButton, TimelineCon,  BodySectionImageCon,
+
+  TestimonialPersonCon, TestimonialPersonImage, TestimonialText, DiveInButton
 } from "../components/HomePage/HomePageElements"
 
 import ProjectTimelineCardCon from "../components/Projects/ProjectTimelineCard"
@@ -21,6 +23,8 @@ import PurpleBlob from "../assets/People/Purple_Blob.png"
 import DreamerImage from "../assets/SiteElements/dreamerslide.png"
 import Will from "../assets/People/memoji-will.png"
 import Sergey from "../assets/People/memoji-sergey.png"
+import Ahkmaral from "../assets/People/memoji-Ahkmaral.png"
+import Pat from "../assets/People/memoji-pat.png"
 
 const wordArray = [
   'NFT project', 'Hackathon scholarship', 'Trip to ETHDenver', 'recording equipment', 'Guitar lessons', 'Word bank', 'economic justice', 'literacy program', 'Animation', 'Dream journal', 'Dream vaction', 'Dream job', 'Dream life', 'Data pipeline', 'Production guild bounty', 'Medical bills', 'School', 'College Tuition', 'Language lessons'
@@ -66,10 +70,10 @@ function Home () {
               transform: "translate(-50%)",
               marginTop: "50px"
             }}>
-            <HomePageButtonConnectWallet onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using Metamask wallet with a gas-less, free transaction to access the dapp."})}>
+            <HomePageButtonConnectWallet onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using your Metamask wallet with a gas-less, free transaction to tokenize yourself and others. LFG!"})}>
                 get funds
             </HomePageButtonConnectWallet>
-            <HomePageButtonConnectWalletInvert onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using Metamask wallet with a gas-less, free transaction to access the dapp."})}>
+            <HomePageButtonConnectWalletInvert onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using your Metamask wallet with a gas-less, free transaction to tokenize yourself and others. LFG!"})}>
                 go fund
             </HomePageButtonConnectWalletInvert>
           </SubHeader>
@@ -118,8 +122,8 @@ function Home () {
               position: "relative",
               display: "flex"
             }}>
-              <ProjectCardButton>Launch dream 🚀</ProjectCardButton>
-              <ProjectCardButton>Learn more 🤔 </ProjectCardButton>
+              <ProjectCardButton onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using your Metamask wallet with a gas-less, free transaction to tokenize yourself and others. LFG!"})}>Launch dream 🚀</ProjectCardButton>
+              <ProjectCardButton onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using your Metamask wallet with a gas-less, free transaction to tokenize yourself and others. LFG!"})}>Learn more 🤔 </ProjectCardButton>
             </div>
           </div>
           
@@ -171,8 +175,8 @@ function Home () {
               position: "relative",
               display: "flex"
             }}>
-              <ProjectCardButton>Fund Dreamers 🤑 </ProjectCardButton>
-              <ProjectCardButton>Learn more 🤔 </ProjectCardButton>
+              <ProjectCardButton onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using your Metamask wallet with a gas-less, free transaction to tokenize yourself and others. LFG!"})}>Fund Dreamers 🤑 </ProjectCardButton>
+              <ProjectCardButton onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using your Metamask wallet with a gas-less, free transaction to tokenize yourself and others. LFG!"})}>Learn more 🤔 </ProjectCardButton>
             </div>
           </div>
         </BodySectionCon>
@@ -185,6 +189,66 @@ function Home () {
           <BodySectionDescription>
             You can’t hunt for snarks alone
           </BodySectionDescription>
+          
+
+        <div style={{width: "100%"}}>
+        <div style={{
+          display: "flex",
+          // flexDirection: "row",
+          // flexWrap: "nowrap",
+          // width: "100%",
+          // margin: "auto",
+          justifyContent: "center"
+          }}>
+          
+        <TestimonialPersonCon>
+          <div style={{width: "300px"}}>
+          <TestimonialPersonImage
+                src={Ahkmaral}
+                height={130}
+                width={130}
+            >
+          </TestimonialPersonImage>
+          </div>
+          <h2>Ahkmaral</h2>
+          <TestimonialText>
+            {"Ahkmaral is someone one of us knows, and she has asked for help funding her university education. She can't access gofundme because she is not American, and she doesn't have a structure for this fundraising or system of accountability."}
+          </TestimonialText>
+        </TestimonialPersonCon>
+
+
+        <TestimonialPersonCon>
+          <div style={{width: "300px"}}>
+          <TestimonialPersonImage
+                src={Pat}
+                height={130}
+                width={130}
+            >
+          </TestimonialPersonImage>
+          </div>
+          <h2>Pat Santiago</h2>
+          <TestimonialText>
+            {"Pat Santiago is a radical guy who Tokenized his future income from DAO Work for the next 2 years to pay for a trip to ETHDenver, but also included some burnable tokenomics to exchange for his time."}
+          </TestimonialText>
+        </TestimonialPersonCon>
+
+        <TestimonialPersonCon>
+          <div style={{width: "300px"}}>
+          <TestimonialPersonImage
+                src={Sergey}
+                height={130}
+                width={130}
+            >
+          </TestimonialPersonImage>
+          </div>
+          <h2>Sergey Nazarov</h2>
+          <TestimonialText>
+            {"Sergey Nazarov, Bossman of Chainlink, is a brilliant and generous man, who would happily invest in people all around the world IF ONLY THERE WAS CRYPTOGRAPHIC TRUTH and TRUST MINIMIZED AGREEMENTS (this is kind of his thing)."}
+          </TestimonialText>
+        </TestimonialPersonCon>
+      </div>
+      </div>
+          
 
         
 
@@ -199,8 +263,8 @@ function Home () {
               position: "relative",
               display: "flex"
             }}>
-              <ProjectCardButton>Fund Dreamers 🤑 </ProjectCardButton>
-              <ProjectCardButton>Learn more 🤔 </ProjectCardButton>
+              
+              <DiveInButton onClick={() => authenticate({signingMessage:"Welcome to GoFundYourself! Sign in using your Metamask wallet with a gas-less, free transaction to tokenize yourself and others. LFG!"})}>dive in 🔥 </DiveInButton>
             </div>
           </div>
         </BodySectionCon>
