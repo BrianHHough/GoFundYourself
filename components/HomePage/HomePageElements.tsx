@@ -86,6 +86,8 @@ export const HomePageButtonConnectWalletInvert = styled.button`
 
 export const BodySectionCon = styled.div`
     height: 100%;
+    margin-bottom: 50px;
+
     /* width: 100vw; */
 `;
 
@@ -93,7 +95,7 @@ export const BodySectionHeader = styled.div`
   /* margin-top: 30px; */
   text-align: center;
   font-size: 30pt;
-  margin-top: 40px;
+  margin-top: 140px;
   font-weight: 650;
   text-decoration: underline;
 `;
@@ -102,8 +104,10 @@ export const BodySectionDescription = styled.div`
   margin-top: 30px;
   text-align: center;
   font-size: 15pt;
-  padding: 0px 60px 00px 60px;
+  padding: 0px 20% 40px 20%;
 `;
+
+
 
 export const TimelineCon = styled.div`
   /* height: 652px; */
@@ -115,4 +119,30 @@ export const BodySectionImageCon = styled.div`
   transform: scale(0.7);
   position: relative;
   float: right;
+`;
+
+export const ProjectCardCon = styled.div`
+    display: flex;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    top: 10%;
+    width: 60%;
+`;
+
+export const ProjectCardButton = styled.div`
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 4px solid black;
+    padding: 10px 10px 10px 10px;
+    width: 175px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    &:hover {
+      background: #e6e6e6;
+      transition: all 0.2s ease-in-out;
+      transform: scale(1.1);
+    }
 `;
