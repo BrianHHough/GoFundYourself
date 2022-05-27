@@ -286,7 +286,9 @@ function Home () {
           <link rel="icon" href="/favicon.ico" />
         </Head>
       </div>
+      <BodyCon>
       <h1>Hey you are logged in authenticated!</h1>
+      </BodyCon>
     </>
   )
 }

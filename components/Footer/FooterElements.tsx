@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Blockies from "react-blockies";
 
 export const FooterCon = styled.div`
-    height: 145px;
+    height: 70px;
     // min-height: 15vh;// 140px;
     width: 100vw;
     /* bottom: 0; */
@@ -13,7 +13,8 @@ export const FooterCon = styled.div`
 `;
 
 export const FooterLogoCon = styled.div`
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    margin-top: 7px;
 `;
 
 export const FooterLogo = styled.div`
@@ -51,7 +52,9 @@ export const FooterLinksCon = styled.div`
     line-height: 2;
     color: white;
     margin-top: 20px;
-    display: grid;
+    /* display: grid; */
+    display: flex;
     text-align: right;
     margin-right: 20px;
+    padding: 0px 20px 0px 20px;
 `;

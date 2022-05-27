@@ -8,6 +8,7 @@ export const NavBarCon = styled.div`
     position: relative;
     background: rgb(255,255,255);
     display: flex;
+    box-shadow: 0 8px 12px -2px gray;
 `;
 
 export const NavBarLogo = styled.div`

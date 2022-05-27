@@ -26,12 +26,17 @@ function NavBar (): JSX.Element[] | any {
     return (
         <FooterCon>
             <FooterLogoCon>
-                <FooterLogo>
-                    GoFundYourself
-                </FooterLogo>
-                <FooterLogoDescription>
-                    On the Ξthereum blockchain
-                </FooterLogoDescription>
+                <div style={{display: "flex"}}>
+                <div>
+                    <FooterLogo>
+                        GoFundYourself
+                    </FooterLogo>
+                    <FooterLogoDescription>
+                        On the Ξthereum blockchain
+                    </FooterLogoDescription>
+                </div>
+                
+                <div style={{marginTop: "5px"}}>
                 <FooterLogosCon>
                     <Link href="https://discord.gg/bpgXXn8UcH" passHref>
                         <a target="_blank" rel="noreferrer">
@@ -45,6 +50,9 @@ function NavBar (): JSX.Element[] | any {
                         </a>
                     </Link>
                 </FooterLogosCon>
+                </div>
+
+                </div>
 
                 <FooterLinksCon>
                         <Link href="proposals" passHref>
@@ -52,11 +60,19 @@ function NavBar (): JSX.Element[] | any {
                                 Top Rated Proposals
                             </a>
                         </Link>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
                         <Link href="proposals" passHref>
                             <a target="_blank" rel="noreferrer">
                                 Newest Proposals
                             </a>
                         </Link>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
                         <Link href="showcase" passHref>
                             <a target="_blank" rel="noreferrer">
                                 Project Showcase

@@ -24,6 +24,7 @@
     "magic-sdk": "^8.1.0",
     "moralis": "^1.5.5",
     "next": "12.1.1",
+    "nft.storage": "^6.3.0",
     "react": "17.0.2",
     "react-blockies": "^1.4.1",
     "react-dom": "17.0.2",
