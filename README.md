@@ -1,12 +1,16 @@
 # GoFundYourself
 
 Getting funding for your passion project, needs or dream doesn't have to be a nightmare!
+> check out our [live demo on Fleek](https://gofundyourself.netlify.app/)
 
 ### Let's Funding Thoughtfully Go! LFTG!
+
+[Detailed Documentation Here](https://docs.google.com/document/d/1wJF1iTp9k4xQpQAkvgushlUUL4FbcLhFiTmBSbvpg60/edit?usp=sharing)
 
 ## Installing
 
 1. git clone this repo
+1. npm install nft.storage
 1. npm install
 1. set up .env
 1. npm run dev
@@ -17,6 +21,8 @@ Getting funding for your passion project, needs or dream doesn't have to be a ni
 NEXT_PUBLIC_MORALIS_APP_ID=Ryl3...
 NEXT_PUBLIC_MORALIS_SERVER_URL=https:...
 NEXT_PUBLIC_COVALENT_API_KEY=ckey_f...
+NEXT_PUBLIC_NFT_STORAGE_API=reallylong...
+
 
 ## NextJS Boilerplate
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

@@ -1,9 +1,11 @@
 import styled from "styled-components"
 import Image from "next/image"
 
+// #00FCB9
+
 export const BodyCon = styled.div`
   width: 100vw;
-  height: calc(100vh - 90px - 145px);
+  height: calc(100vh - 90px - 70px);
   overflow-y: auto;
 `;
 
