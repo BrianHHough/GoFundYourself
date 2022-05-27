@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Link from "next/link"
+import Image from "next/image"
 import { useMoralis } from "react-moralis"
 import {  
     ProjectCardCon, ProjectCardImage, PercentComplete, ProjectCardViewButton
-} from "../Projects/ProjectElements"
+} from "./ProjectElements"
 import { styled } from '@mui/material/styles';
 
 import LinearProgress, { LinearProgressProps, linearProgressClasses } from '@mui/material/LinearProgress';
@@ -11,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { stepClasses } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import EthereumLogo from "../../assets/Logos/ethereum.png"
+import ChainlinkHorizontal from "../../assets/Logos/chainlink-horizontal.jpeg"
 
 namespace JSX {
     export interface Element {
@@ -38,23 +41,56 @@ return (
     <>
         <Box sx={{ display: 'flex', alignItems: 'center', width: "50%" }}>
         <Box sx={{ width: '100%', mr: 1 }}>
-            <BorderLinearProgress 
-                variant="determinate" 
-                {...props} 
-            />
+            <div style={{
+                display: "flex",
+                left: "50%",
+                transform: "translateX(15%)",
+                position: "relative"
+            }}>
+            <div style={{position: "relative", marginRight: "5px"}}>
+                <Image src={EthereumLogo} alt="ethereum" height="40" width="25"/>
+            </div>
+            <h1 style={{position: "relative", marginTop: "0px" }}>
+                {`${(props.value).toFixed(3)}`} 
+            </h1>
+            </div>
         </Box>
         
         </Box>
-        <PercentComplete>
-            {`${Math.round(props.value)}% Funded`}
+        <PercentComplete style={{marginTop: "-10px"}}>
+            <div>
+                <span style={{fontWeight: "700", marginRight: "10px"}}>($24,000 USD)</span>
+                <PercentComplete>
+            
+            funding given
         </PercentComplete>
+                <div style={{
+                    display: "flex",
+                    left: "50%",
+                    transform: "translateX(-25%)",
+                    position: "relative",
+                    marginTop: "20px"
+                    }}>
+                    Powered by: 
+                    <div style={{width: "90px", marginLeft: "10px", marginTop: "-3px"}}>
+                        {/* DEWORK BOUNTY CHAINLINK PRICE FEED INTEGRATION */}
+                    <Image 
+                        src={ChainlinkHorizontal} 
+                        alt="Chainlink"
+                        objectFit="contain"
+                    />
+                    </div>
+                </div>
+            </div>
+        </PercentComplete>
+        
     </>
 );
 }
 
-function ProjectCard (
-    {pfp, name, need, status, link}: 
-    {pfp: any, name: string, need: string, status: number, link: string}
+function InvestorCard (
+    {pfp, name, status, link}: 
+    {pfp: any, name: string, status: number, link: string}
     ): JSX.Element[] | any {
     const {
         authenticate,
@@ -88,7 +124,7 @@ function ProjectCard (
             </div>
 
             <div style={{width: "100%", textAlign: "center", marginTop: "10px", marginBottom: "10px", fontSize: "16pt"}}>
-                Get {name} {need}
+                {name}
             </div>
 
             <Box >
@@ -110,7 +146,7 @@ function ProjectCard (
                     top: "50%",
                     transform: "translateY(15%)"
                 }}>
-                    View Project 
+                    View Profile 
                 </div>
                 <ArrowForwardIcon style={{
                     fontWeight: "100"
@@ -125,4 +161,4 @@ function ProjectCard (
     )
 }
 
-export default ProjectCard
+export default InvestorCard

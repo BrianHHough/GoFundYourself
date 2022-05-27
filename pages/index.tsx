@@ -8,16 +8,19 @@ import { useMoralis } from "react-moralis";
 import {
   BodyCon, BodyHeaderCon, RandomizingHeader, SubHeader, PeopleBlobs, HomePageButtonConnectWallet, HomePageButtonConnectWalletInvert, 
   
-  BodySectionCon, BodySectionHeader, BodySectionDescription,TimelineCon,  BodySectionImageCon
+  ProjectCardCon, BodySectionCon, BodySectionHeader, BodySectionDescription, ProjectCardButton, TimelineCon,  BodySectionImageCon
 } from "../components/HomePage/HomePageElements"
 
+import ProjectTimelineCardCon from "../components/Projects/ProjectTimelineCard"
 import ProjectCard from "../components/Projects/ProjectCard"
+import InvestorCard from "../components/Projects/InvestorCard"
 
 import OrangeBlob from "../assets/People/Orange_Blob.png"
 import BlueBlob from "../assets/People/Blue_Blob.png"
 import PurpleBlob from "../assets/People/Purple_Blob.png"
 import DreamerImage from "../assets/SiteElements/dreamerslide.png"
 import Will from "../assets/People/memoji-will.png"
+import Sergey from "../assets/People/memoji-sergey.png"
 
 const wordArray = [
   'NFT project', 'Hackathon scholarship', 'Trip to ETHDenver', 'recording equipment', 'Guitar lessons', 'Word bank', 'economic justice', 'literacy program', 'Animation', 'Dream journal', 'Dream vaction', 'Dream job', 'Dream life', 'Data pipeline', 'Production guild bounty', 'Medical bills', 'School', 'College Tuition', 'Language lessons'
@@ -85,24 +88,127 @@ function Home () {
           <BodySectionDescription>
             Raising capital is hard, takes many months to a year, and is not guaranteed. With GoFundYourself, you pitch your idea to make the world a better place and get funded by a network of people who want to support you and your dreams
           </BodySectionDescription>
-          <TimelineCon>
-            <h1 style={{}}>1</h1>
-            <h1>1</h1>
-            <h1>1</h1>
-          </TimelineCon>
 
-          <ProjectCard 
-            pfp={Will}
-            name={"Will"}
-            need={"better recording equipment"}
-            status={68}
-            link={"/123456"}
-          />
-          <BodySectionImageCon>
-            <Image src={DreamerImage} alt="dreamer image" width="493" height="652"/>
-          </BodySectionImageCon>
+          <ProjectCardCon>
+
+            <ProjectTimelineCardCon 
+              step1={"Make a profile."}
+              step2={"Tell everyone what you’re trying to do."}
+              step3={"Find a community of people who will help you make it real."}
+            />
+
+            <ProjectCard 
+              pfp={Will}
+              name={"Will"}
+              need={"better recording equipment"}
+              status={68}
+              link={"/123456"}
+            />
+          
+          </ProjectCardCon>
+
+          <div style={{
+            textAlign: "center",
+            marginTop: "150px",
+            display: "flex"
+          }}>
+            <div style={{
+              left: "50%",
+              transform: "translateX(-50%)",
+              position: "relative",
+              display: "flex"
+            }}>
+              <ProjectCardButton>Launch dream 🚀</ProjectCardButton>
+              <ProjectCardButton>Learn more 🤔 </ProjectCardButton>
+            </div>
+          </div>
+          
 
         </BodySectionCon>
+
+        <BodySectionCon>
+          <BodySectionHeader>
+           Want to make dreams come true?
+          </BodySectionHeader>
+          <BodySectionHeader style={{
+            fontWeight: "550",
+            fontSize: "20pt",
+            marginTop: "10px",
+            marginBottom: "-20px",
+            textDecoration: "none"
+          }}>
+            Here’s how backers fund change-makers
+          </BodySectionHeader>
+          <BodySectionDescription>
+            YOLO into the blue ocean or pick the best idea for the good of the land.  Be the shit, and reap the harvest!  Bros can have fun funding and finding the true truth, and becoming a network of people to support you too, bro.
+          </BodySectionDescription>
+
+          <ProjectCardCon>
+
+            <ProjectTimelineCardCon 
+              step1={"Make a profile."}
+              step2={"Find a project to support."}
+              step3={"Offer your network, advice and finacial backing to a dreamer you want to see win."}
+            />
+
+            <InvestorCard 
+              pfp={Sergey}
+              name={"Sergey"}
+              status={12.2}
+              link={"/sergey"}
+            />
+          
+          </ProjectCardCon>
+
+          <div style={{
+            textAlign: "center",
+            marginTop: "150px",
+            display: "flex",
+          }}>
+            <div style={{
+              left: "50%",
+              transform: "translateX(-50%)",
+              position: "relative",
+              display: "flex"
+            }}>
+              <ProjectCardButton>Fund Dreamers 🤑 </ProjectCardButton>
+              <ProjectCardButton>Learn more 🤔 </ProjectCardButton>
+            </div>
+          </div>
+        </BodySectionCon>
+        
+
+        <BodySectionCon style={{marginTop: "250px"}}>
+          <BodySectionHeader>
+            See what others are saying:
+          </BodySectionHeader>
+          <BodySectionDescription>
+            You can’t hunt for snarks alone
+          </BodySectionDescription>
+
+        
+
+          <div style={{
+            textAlign: "center",
+            marginTop: "150px",
+            display: "flex",
+          }}>
+            <div style={{
+              left: "50%",
+              transform: "translateX(-50%)",
+              position: "relative",
+              display: "flex"
+            }}>
+              <ProjectCardButton>Fund Dreamers 🤑 </ProjectCardButton>
+              <ProjectCardButton>Learn more 🤔 </ProjectCardButton>
+            </div>
+          </div>
+        </BodySectionCon>
+
+
+        
+
+
       </BodyCon>
     </>
   )
