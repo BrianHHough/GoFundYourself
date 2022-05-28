@@ -210,32 +210,6 @@ function Profile () {
         // setProfilePicture(user?.attributes.profilePicture._url);
       };
 
-    //   useEffect(() => {
-    //     if (user) {
-    //       setProfilePic(user.attributes?.profilePic?._url);
-    //     }
-    //   }, [user]);
-
-    //   const uploadFile = async () => {
-    //     // @ts-ignore
-    //     saveFile(file.name, file, {
-    //       type: "image/png image/jpeg image/jpg",
-    //       onSuccess: (result) => console.log(result),
-    //       onError: (error) => console.log(error),
-    //     });
-    //     user?.set('profilePicture', file);
-    //     await user?.save();
-    //     setProfilePicture(user?.attributes.profilePicture._url)
-    //   };
-
-      // @ts-ignore
-    //   let fileIpfs = saveFile(file[0].name, file[0], {saveIPFS: true});
-    //   user?.set("profilePicture", fileIpfs);
-    //   await user?.save();
-    //   setProfilePicture(user?.attributes.profilePicture._url)
-
-    
-
 
   if(!isAuthenticated)
   return (
@@ -256,7 +230,7 @@ function Profile () {
         </Head>
       </div>
       <BodyCon>
-      <h1>Hey you are logged in authenticated!</h1>
+      <h1>Hey there, welcome to GoFundYourself!</h1>
     <ColumnCon>
 
       <ColumnLeft>
@@ -298,15 +272,15 @@ function Profile () {
                 </Step>
                 ))}
             </Stepper>
-            {activeStep === steps.length && (
-                <Paper square elevation={0} sx={{ p: 3 }}>
-                <Typography>All steps completed - you&apos;re finished</Typography>
-                <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                    Reset
-                </Button>
-                </Paper>
-            )}
-            </Box>
+        {activeStep === steps.length && (
+            <Paper square elevation={0} sx={{ p: 3 }}>
+            <Typography>All steps completed - you&apos;re finished</Typography>
+            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                Reset
+            </Button>
+            </Paper>
+        )}
+        </Box>
         </ProgressStepper>
     </ColumnLeft>
 
@@ -314,15 +288,13 @@ function Profile () {
         <ProfileEditsCon>
 
         {/* Add Profile Step */}
-        {activeStep === 0 
-        && (userPFP == null || undefined  ?
+        {activeStep === 0  ?
             <>
             <ProfileEditsTitle>
                 First step, pick a profile picture!
             </ProfileEditsTitle>
             {profilePicture === undefined ? 
             <div className={classes.root}>
-            
                 <label htmlFor="icon-button-file">
                     <IconButton color="primary" aria-label="upload picture" component="span">
                     <Avatar className={classes.large}/>
@@ -335,10 +307,8 @@ function Profile () {
             </div>
             }
             <div style={{width: "100%"}}>
-            
-             </div>
-
-             <input 
+            </div>
+            <input 
                     accept="image/*" 
                     className={classes.input} 
                     id="icon-button-file" 
@@ -346,9 +316,7 @@ function Profile () {
                     name="myfile"
                     ref={inputFileRef}
                     onChange={onChangePhoto}
-                />
-
-
+            />
             <SaveProfileInformationCon>
                 <SaveProfileInformation 
                     style={{justifyContent: "center"}}
@@ -363,29 +331,22 @@ function Profile () {
             </>
             : 
             ""
-            )
-        || (userPFP ? 
-            <>
-            <ProfileEditsTitle>
-                You already have a profile picture:
-            </ProfileEditsTitle>
-            <div style={{width: "100%", transform: "translateX(35%)", marginTop: "20px"}}>
-                <Image src={userPFP} alt="logo" width="160" height="160" className={classes.imagePreview}/>
-            </div>
-            Ta-da!
-            </>
-            :
-            ""
-            )
+            // <>
+            // <ProfileEditsTitle>
+            //     You already have a profile picture:
+            // </ProfileEditsTitle>
+            // <div style={{width: "100%", transform: "translateX(35%)", marginTop: "20px"}}>
+            //     <Image src={userPFP} alt="logo" width="160" height="160" className={classes.imagePreview}/>
+            // </div>
+            // Ta-da!
+            // </>
         }
         {activeStep === 1 ?
         <>
         <div>hello</div>
         </>
         :
-        <>
-        <div>hello2</div>
-        </>
+        ""
         }
 
         </ProfileEditsCon>

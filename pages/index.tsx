@@ -15,6 +15,7 @@ import {
 
 import ProjectTimelineCardCon from "../components/Projects/ProjectTimelineCard"
 import ProjectCard from "../components/Projects/ProjectCard"
+import FeedCard from "../components/Projects/ProjectCard"
 import InvestorCard from "../components/Projects/InvestorCard"
 
 import OrangeBlob from "../assets/People/Orange_Blob.png"
@@ -25,6 +26,7 @@ import Will from "../assets/People/memoji-will.png"
 import Sergey from "../assets/People/memoji-sergey.png"
 import Ahkmaral from "../assets/People/memoji-Ahkmaral.png"
 import Pat from "../assets/People/memoji-pat.png"
+import projects from "../components/Projects/Projects.json"
 
 const wordArray = [
   'NFT project', 'Hackathon scholarship', 'Trip to ETHDenver', 'recording equipment', 'Guitar lessons', 'Word bank', 'economic justice', 'literacy program', 'Animation', 'Dream journal', 'Dream vaction', 'Dream job', 'Dream life', 'Data pipeline', 'Production guild bounty', 'Medical bills', 'School', 'College Tuition', 'Language lessons'
@@ -38,6 +40,8 @@ function Home () {
   } = useMoralis();
 
   const [randomItem, setRandomItem] = useState('');
+
+  const [items, setItems] = useState(projects);
 
   const timoutId = setTimeout(() => {
     var randomItem = wordArray[Math.floor(Math.random() * wordArray.length)];
@@ -287,7 +291,23 @@ function Home () {
         </Head>
       </div>
       <BodyCon>
-      <h1>Hey you are logged in authenticated!</h1>
+      <h1>Hey you are logged in!</h1>
+      {projects.map((item, index) => (
+        <FeedCard 
+          key={index}
+          pfp={Will}
+          name={"Will"}
+          need={"better recording equipment"}
+          status={68}
+          link={"/123456"}
+        />
+        // <div key={index} style={{height: "300px", width: "500px", border: "3px solid black", borderRadius: "20px", marginBottom: "20px"}}>
+        //   <h1>{item.title}</h1>
+        //   <h2>{item.name}</h2>
+        //   <h3>{item.wallet}</h3>
+        //   <p>{item.description}</p>
+        // </div>
+      ))}
       </BodyCon>
     </>
   )
