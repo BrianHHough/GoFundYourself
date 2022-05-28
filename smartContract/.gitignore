@@ -1,0 +1,10 @@
+node_modules
+.env
+coverage
+coverage.json
+typechain
+contracts/sc.sol
+
+#Hardhat files
+cache
+artifacts
