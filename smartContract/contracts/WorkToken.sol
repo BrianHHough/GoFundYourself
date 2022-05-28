@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "hardhat/console.sol";
 
@@ -22,12 +23,17 @@ struct ProjectCreator {
 
 contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     using SafeERC20 for IERC20;
+    AggregatorV3Interface internal ETHpriceFeed;
+    AggregatorV3Interface internal MATICpriceFeed;
 
     uint256 public startTotalJobCost;
     uint16 public jobLimit;
     uint256 public tokenCounter;
-    IERC20 public stableCoin;
+    IERC20 public USDC;
+    IERC20 public WMATIC;
+    IERC20 public WETH;
     enum tokenStatus{unFulfilled, fulfilled, expired, flagged}
+    enum currency{USDC, ETH, MATIC}
 
     mapping(uint256 => tokenStatus) public tokenIdToStatus;
     mapping(uint256 => address) public tokenIdToProjectCreator;
@@ -43,15 +49,22 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
         tokenCounter = 0;
         startTotalJobCost = 55;
         jobLimit = 50;
+        ETHpriceFeed = AggregatorV3Interface(0x0715A7794a1dc8e42615F059dD6e406A6594651A);
+        MATICpriceFeed = AggregatorV3Interface(0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada);
+        USDC = IERC20(0xe11A86849d99F524cAC3E7A0Ec1241828e332C62);
+        WMATIC = IERC20(0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889);//0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa
+        WETH = IERC20(0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889);
     }
     modifier tokenOwner(uint256 jobIndex) {
       require(msg.sender == ownerOf(jobIndex));
       _;
    }
 
+    /*
     function setTokenAddresses(address _stableCoinAddress) external onlyOwner{
-        stableCoin = IERC20(_stableCoinAddress);
+        stableCoin = IERC20(0xe11A86849d99F524cAC3E7A0Ec1241828e332C62);
     }
+    */
 
     function getProjectCreator(address projectCreatorAddress) public view returns (ProjectCreator memory) {
         return projectCreators[projectCreatorAddress];
@@ -65,7 +78,37 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
         return tokenIdToStatus[tokenId];
     }
     
-    function mintNFT(address projectCreatorAddress) public {
+    function payWithUSDC(uint256 amount, address projectCreatorAddress) internal {
+        USDC.safeTransferFrom(msg.sender, projectCreatorAddress, amount);
+    }
+
+    function payWithETH(uint256 amount, address projectCreatorAddress) internal {
+        (
+            /*uint80 roundID*/,
+            int price,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = ETHpriceFeed.latestRoundData();
+        amount = amount / (uint256(price) * 10 ** 8);
+        WETH.safeTransferFrom(msg.sender, projectCreatorAddress, amount);
+    }
+
+    function payWithMATIC(uint256 amount, address projectCreatorAddress) internal {
+         (
+            /*uint80 roundID*/,
+            int price,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = MATICpriceFeed.latestRoundData();
+        amount = amount / (uint256(price) * 10 ** 8);
+        WMATIC.safeTransferFrom(msg.sender, projectCreatorAddress, amount);
+    }
+
+
+    function mintNFT(address projectCreatorAddress, uint16 t) public {
+        currency cur = currency(t); 
         require(projectCreators[projectCreatorAddress].jobsMinted <= projectCreators[projectCreatorAddress].jobs);
         tokenIdToStatus[tokenCounter] = tokenStatus(0);
         tokenIdToProjectCreator[tokenCounter] = projectCreatorAddress;
@@ -76,7 +119,14 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
 
         uint256 jobCost = 10 ** 18 * projectCreators[projectCreatorAddress].totalJobCost / projectCreators[projectCreatorAddress].jobs;
 
-        stableCoin.safeTransferFrom(msg.sender, projectCreatorAddress, jobCost);
+        if(cur == currency(0)){
+            payWithUSDC(jobCost, projectCreatorAddress);
+        }else if (cur == currency(1)) {
+            payWithETH(jobCost, projectCreatorAddress);
+        } else {
+            payWithMATIC(jobCost, projectCreatorAddress);
+        }
+        //stableCoin.safeTransferFrom(msg.sender, projectCreatorAddress, jobCost);
 
         _safeMint(msg.sender, tokenCounter);
         _setTokenURI(tokenCounter, projectCreators[projectCreatorAddress].tokenURI);
@@ -110,7 +160,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
         require(keccak256(abi.encodePacked(projectCreators[projectCreatorAddress].tokenURI)) == keccak256(abi.encodePacked(tokenURI(jobIndex))));
         projectCreators[projectCreatorAddress].jobsCompleted++;
         tokenIdToStatus[jobIndex] = tokenStatus(1);
-        emit FinishProject(uint256 jobIndex);
+        emit FinishProject(jobIndex);
     }
 
     function badJob(uint256 jobIndex) public tokenOwner(jobIndex) { 

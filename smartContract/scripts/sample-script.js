@@ -14,7 +14,7 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const WorkToken = await hre.ethers.getContractFactory("workToken");
+  const WorkToken = await hre.ethers.getContractFactory("WorkToken");
   const workToken = await WorkToken.deploy();//'0x001B3B4d0F3714Ca98ba10F6042DaEbF0B1B7b6F'
 
   await workToken.deployed();
