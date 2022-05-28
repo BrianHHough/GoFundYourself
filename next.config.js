@@ -11,7 +11,7 @@ module.exports = {
       NEXT_PUBLIC_NFT_STORAGE_API_KEY: process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY
   },
   images: {
-      domains: ['localhost'],
+      domains: ['localhost', 'ipfs.moralis.io'],
   },
   async headers() {
     return [

@@ -1,12 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { makeStyles } from '@material-ui/core/styles';
-import Moralis, { useMoralis, useMoralisFile } from "react-moralis";
+import Moralis, { useMoralis } from "react-moralis";
 import Logo from "../assets/Logos/LOGO_gofundyourself.png"
-import { NFTStorage } from 'nft.storage'
 
 import {
   BodyCon
@@ -45,31 +44,20 @@ const useStyles = makeStyles((theme) => ({
     input: {
         //   display: "none",
         position: 'relative',
-        left: "50%",
-        transform: "translateX(-50%)",
-        // top: 230,
+        top: 230,
         
         // marginTop: "50px"
         
     },
     large: {
-        width: 160,
-        height: 160,
+        width: theme.spacing(20),
+        height: theme.spacing(20),
         color: "#00FCB9",
-        
         //   marginTop: "20px"
         // left: "50%",
         // transform: "translateX(-30%)",
         position: "relative",
     },
-    imagePreview: {
-        // left: "50%",
-        // transform: "translateX(-50%)",
-        // position: "relative",
-        // left: "50%",
-        // transform: "translateX(-50%)",
-        
-    }
   }));
 
 const steps = [
@@ -98,29 +86,16 @@ function Profile () {
         user,
     } = useMoralis();
 
-    const { saveFile, moralisFile } = useMoralisFile();
-    const [photoFile, setPhotoFile] = useState();
-    const [photoFileName, setPhotoFileName] = useState();
-    const [profilePicture, setProfilePicture] = useState();
-  
-
     const classes = useStyles();
 
     const [activeStep, setActiveStep] = useState(0);
     const userAddress = user?.get("ethAddress");
     const userPFP = user?.get("profilePicture");
-    console.log(userPFP)
 
     const [name, setName] = useState("");
     const [isLoading, setIsLoading] = React.useState(false);
-    const [file, setFile] = useState("")
-    const [fileSrc, setFileSrc] = useState("")
+    const [file, setFile] = useState('')
     const inputFileRef = React.useRef<HTMLInputElement | null>(null);
-    console.log(file)
-
-    console.log(inputFileRef)
-    console.log(fileSrc);
-    console.log(file);
   
     //   PROGRESS STEPPER
     const handleNext = () => {
@@ -175,64 +150,6 @@ function Profile () {
         setIsLoading(false);
     };
 
-    // useEffect(() => {
-    //   const src = URL.createObjectURL(new Blob([file], { type: 'image/*'}))
-    //   setFileSrc(src)
-    // }, [file])
-    
-
-    async function storeFileWithNftStorage(file: File) {
-        const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY
-        if (!token) {
-            throw new Error('No NFT Storage token')
-        }
-    
-        const client = new NFTStorage({ token: token })
-        const cid = await client.storeDirectory([file])
-        const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`
-        return {
-            cid,
-            gatewayUrl
-        }
-    }
-    const onChangePhoto = (e) => {
-        setPhotoFile(e.target.files[0]);
-        setPhotoFileName(e.target.files[0].name);
-      };
-
-    const onSubmitPhoto = async () => {
-        const file: any = photoFile;
-        const name: any = photoFileName;
-        let fileIpfs = await saveFile(name, file, { saveIPFS: true });
-        // @ts-ignore
-        user?.set("profilePicture", fileIpfs?._ipfs);
-        await user?.save();
-        // setProfilePicture(user?.attributes.profilePicture._url);
-      };
-
-    //   useEffect(() => {
-    //     if (user) {
-    //       setProfilePic(user.attributes?.profilePic?._url);
-    //     }
-    //   }, [user]);
-
-    //   const uploadFile = async () => {
-    //     // @ts-ignore
-    //     saveFile(file.name, file, {
-    //       type: "image/png image/jpeg image/jpg",
-    //       onSuccess: (result) => console.log(result),
-    //       onError: (error) => console.log(error),
-    //     });
-    //     user?.set('profilePicture', file);
-    //     await user?.save();
-    //     setProfilePicture(user?.attributes.profilePicture._url)
-    //   };
-
-      // @ts-ignore
-    //   let fileIpfs = saveFile(file[0].name, file[0], {saveIPFS: true});
-    //   user?.set("profilePicture", fileIpfs);
-    //   await user?.save();
-    //   setProfilePicture(user?.attributes.profilePicture._url)
 
     
 
@@ -320,74 +237,46 @@ function Profile () {
             <ProfileEditsTitle>
                 First step, pick a profile picture!
             </ProfileEditsTitle>
-            {profilePicture === undefined ? 
             <div className={classes.root}>
-            
+
+            <input 
+                accept="image/*" 
+                className={classes.input} 
+                id="icon-button-file" 
+                type="file"
+                name="myfile" 
+                ref={inputFileRef}
+            />
+                {console.log(inputFileRef)}
                 <label htmlFor="icon-button-file">
                     <IconButton color="primary" aria-label="upload picture" component="span">
+
+                    <Image src={Logo} alt="to mint" width="160" height="160"/>
+                    
                     <Avatar className={classes.large}/>
+                    
                     </IconButton>
                 </label>
             </div>
-            :
-            <div style={{width: "100%", transform: "translateX(35%)", marginTop: "20px"}}>
-                <Image src={profilePicture} alt="logo" width="160" height="160" className={classes.imagePreview}/>
-            </div>
-            }
-            <div style={{width: "100%"}}>
-            
-             </div>
-
-             <input 
-                    accept="image/*" 
-                    className={classes.input} 
-                    id="icon-button-file" 
-                    type="file"
-                    name="myfile"
-                    ref={inputFileRef}
-                    onChange={onChangePhoto}
-                />
-
-
             <SaveProfileInformationCon>
                 <SaveProfileInformation 
                     style={{justifyContent: "center"}}
                     type="submit"
                     value={isLoading? "Minting..." : "Upload to IPFS" }
                     disabled={isLoading} 
-                    // @ts-ignore
-                    // onClick={storeFileWithNftStorage(file)}
-                    onClick={onSubmitPhoto}
+                    onClick={handleOnClick}
                 />
             </SaveProfileInformationCon>
             </>
             : 
             ""
             )
-        || (userPFP ? 
-            <>
-            <ProfileEditsTitle>
-                You already have a profile picture:
-            </ProfileEditsTitle>
-            <div style={{width: "100%", transform: "translateX(35%)", marginTop: "20px"}}>
-                <Image src={userPFP} alt="logo" width="160" height="160" className={classes.imagePreview}/>
-            </div>
-            Ta-da!
-            </>
+        || (userPFP > 0 ? 
+            <ProfileEditsTitle>You already have a profile picture:</ProfileEditsTitle>
             :
             ""
             )
         }
-        {activeStep === 1 ?
-        <>
-        <div>hello</div>
-        </>
-        :
-        <>
-        <div>hello2</div>
-        </>
-        }
-
         </ProfileEditsCon>
 
     </ColumnRight>
