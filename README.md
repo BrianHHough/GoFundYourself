@@ -1,4 +1,4 @@
-# GoFundYourself ![image](https://user-images.githubusercontent.com/62179036/170808474-25aef53f-c545-4b6d-b1e3-e8df562918fa.png = 250x250)
+# GoFundYourself ![image](https://user-images.githubusercontent.com/62179036/170808474-25aef53f-c545-4b6d-b1e3-e8df562918fa.png =200x200)
 
 Getting funding for your passion project, needs or dream doesn't have to be a nightmare!
 > check out our [live demo on Netlify](https://gofundyourself.netlify.app/)
