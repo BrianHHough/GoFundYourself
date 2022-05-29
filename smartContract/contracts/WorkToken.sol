@@ -90,7 +90,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
             /*uint timeStamp*/,
             /*uint80 answeredInRound*/
         ) = ETHpriceFeed.latestRoundData();
-        amount = amount / (uint256(price) * 10 ** 8);
+        amount = (amount * 10 ** 8) / uint256(price);
         WETH.safeTransferFrom(msg.sender, projectCreatorAddress, amount);
     }
 
@@ -102,7 +102,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
             /*uint timeStamp*/,
             /*uint80 answeredInRound*/
         ) = MATICpriceFeed.latestRoundData();
-        amount = amount / (uint256(price) * 10 ** 8);
+        amount = (amount * 10 ** 8) / uint256(price);
         WMATIC.safeTransferFrom(msg.sender, projectCreatorAddress, amount);
     }
 
@@ -117,7 +117,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
         projectCreators[projectCreatorAddress].jobsIssued.push(tokenCounter);
         projectCreators[projectCreatorAddress].jobsMinted++;
 
-        uint256 jobCost = 10 ** 18 * projectCreators[projectCreatorAddress].totalJobCost / projectCreators[projectCreatorAddress].jobs;
+        uint256 jobCost = (10 ** 18 * projectCreators[projectCreatorAddress].totalJobCost) / projectCreators[projectCreatorAddress].jobs;
 
         if(cur == currency(0)){
             payWithUSDC(jobCost, projectCreatorAddress);
