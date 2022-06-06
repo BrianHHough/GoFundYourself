@@ -104,7 +104,8 @@ function Profile () {
     const [profilePicture, setProfilePicture] = useState();
     const [profileDo, setProfileDo] = useState();
     const [profileLocation, setProfileLocation] = useState();
-    const [proifleEmail, setProfileEmail] = useState();
+    const [profileEmail, setProfileEmail] = useState();
+    const [profileBio, setProfileBio] = useState();
     
 
     const classes = useStyles();
