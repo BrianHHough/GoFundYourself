@@ -238,6 +238,7 @@ function Profile () {
 
         await user?.save();
         
+        //Change text on submit button after user submits their info
         document.getElementById("submitProfileButton").childNodes[0].nodeValue="Submitted... Go to next step!"
 
     };
@@ -381,59 +382,71 @@ function Profile () {
                 Second step, some basic information.
             </ProfileEditsTitle>
             <div className="flex w-screen h-screen items-center justify-center">
-      <form onSubmit={onSubmitProfile}>
-        <div>
-          <input
-            type="text"
-            className="border-[1px] p-2 text-lg border-black w-full"
-            value={profileName}
-            placeholder="What is your name?"
-            onChange={(e) => setProfileName(e.target.value)}
-          />
-        </div>
-        <div className="mt-3">
-          <input
-            type="text"
-            className="border-[1px] p-2 text-lg border-black w-full"
-            value={profileDo}
-            placeholder="What do you do?"
-            onChange={(e) => setProfileDo(e.target.value)}
-          />
-        </div>
-        <div className="mt-3">
-          <input
-            type="text"
-            className="border-[1px] p-2 text-lg border-black w-full"
-            value={profileLocation}
-            placeholder="Where are you from?"
-            onChange={(e) => setProfileLocation(e.target.value)}
-          />
-        </div>
-        <div className="mt-3">
-          <input
-            type="text"
-            className="border-[1px] p-2 text-lg border-black w-full"
-            value={profileEmail}
-            placeholder="What's your email?"
-            onChange={(e) => setProfileEmail(e.target.value)}
-          />
-        </div>
+            <form onSubmit={onSubmitProfile}>
+                <div>
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileName}
+                    placeholder="What is your name?"
+                    onChange={(e) => setProfileName(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileDo}
+                    placeholder="What do you do?"
+                    onChange={(e) => setProfileDo(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileLocation}
+                    placeholder="Where are you from?"
+                    onChange={(e) => setProfileLocation(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileEmail}
+                    placeholder="What's your email?"
+                    onChange={(e) => setProfileEmail(e.target.value)}
+                />
+                </div>
 
 
-        <button
-          type="submit"
-          id="submitProfileButton"
-          className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
-        >
-         Submit
-        </button>
+                <button
+                type="submit"
+                id="submitProfileButton"
+                className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
+                >
+                Submit
+                </button>
 
-      </form>
-    </div>
+            </form>
+            </div>
             </>
         :
         ""
         }
+
+        {activeStep === 2 ?
+            <>
+            <ProfileEditsTitle>
+                    Third step, your story.
+            </ProfileEditsTitle>
+            </>
+            :
+            ""
+        }
+
+
 
         </ProfileEditsCon>
 
