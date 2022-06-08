@@ -400,7 +400,7 @@ function Profile () {
           type="submit"
           className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
         >
-          Mint now!
+          Submit!
         </button>
 
       </form>
