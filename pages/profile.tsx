@@ -224,7 +224,8 @@ function Profile () {
     * profileDo -> profession
     * profileLocation -> location
     * profileEmail -> email
-    */
+    */  
+        e.preventDefault();
         const name: string = profileName;
         const profession: string = profileDo;
         const location: string = profileLocation;
@@ -236,6 +237,8 @@ function Profile () {
         user?.set("email", email);
 
         await user?.save();
+        
+        document.getElementById("submitProfileButton").childNodes[0].nodeValue="Submitted... Go to next step!"
 
     };
 
@@ -378,7 +381,7 @@ function Profile () {
                 Second step, some basic information.
             </ProfileEditsTitle>
             <div className="flex w-screen h-screen items-center justify-center">
-      <form onClick={onSubmitProfile}>
+      <form onSubmit={onSubmitProfile}>
         <div>
           <input
             type="text"
@@ -416,11 +419,13 @@ function Profile () {
           />
         </div>
 
+
         <button
           type="submit"
+          id="submitProfileButton"
           className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
         >
-          Submit!
+         Submit
         </button>
 
       </form>
