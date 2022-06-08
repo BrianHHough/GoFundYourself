@@ -31,6 +31,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import { debug } from 'console'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -216,7 +217,26 @@ function Profile () {
       };
 
     const onSubmitProfile = async (e) => {
-        // do something
+    
+    /*
+    ** Mapping to Moralis server
+    * profileName -> name
+    * profileDo -> profession
+    * profileLocation -> location
+    * profileEmail -> email
+    */
+        const name: string = profileName;
+        const profession: string = profileDo;
+        const location: string = profileLocation;
+        const email: string = profileEmail; 
+        // @ts-ignore
+        user?.set("name", name);
+        user?.set("profession", profession);
+        user?.set("location", location);
+        user?.set("email", email);
+
+        await user?.save();
+
     };
 
   if(!isAuthenticated)
@@ -358,7 +378,7 @@ function Profile () {
                 Second step, some basic information.
             </ProfileEditsTitle>
             <div className="flex w-screen h-screen items-center justify-center">
-      <form onSubmit={onSubmitProfile}>
+      <form onClick={onSubmitProfile}>
         <div>
           <input
             type="text"
