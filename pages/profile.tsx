@@ -102,10 +102,11 @@ function Profile () {
     const [photoFile, setPhotoFile] = useState();
     const [photoFileName, setPhotoFileName] = useState();
     const [profilePicture, setProfilePicture] = useState();
-    const [profileDo, setProfileDo] = useState();
-    const [profileLocation, setProfileLocation] = useState();
-    const [profileEmail, setProfileEmail] = useState();
-    const [profileBio, setProfileBio] = useState();
+    const [profileName, setProfileName] = useState("");
+    const [profileDo, setProfileDo] = useState("");
+    const [profileLocation, setProfileLocation] = useState("");
+    const [profileEmail, setProfileEmail] = useState("");
+    const [profileBio, setProfileBio] = useState("");
     
 
     const classes = useStyles();
@@ -214,6 +215,9 @@ function Profile () {
         // setProfilePicture(user?.attributes.profilePicture._url);
       };
 
+    const onSubmitProfile = async (e) => {
+        // do something
+    };
 
   if(!isAuthenticated)
   return (
@@ -345,10 +349,63 @@ function Profile () {
             // Ta-da!
             // </>
         }
+ 
+
+        
         {activeStep === 1 ?
-        <>
-        <div>hello</div>
-        </>
+            <>
+            <ProfileEditsTitle>
+                Second step, some basic information.
+            </ProfileEditsTitle>
+            <div className="flex w-screen h-screen items-center justify-center">
+      <form onSubmit={onSubmitProfile}>
+        <div>
+          <input
+            type="text"
+            className="border-[1px] p-2 text-lg border-black w-full"
+            value={profileName}
+            placeholder="What is your name?"
+            onChange={(e) => setProfileName(e.target.value)}
+          />
+        </div>
+        <div className="mt-3">
+          <input
+            type="text"
+            className="border-[1px] p-2 text-lg border-black w-full"
+            value={profileDo}
+            placeholder="What do you do?"
+            onChange={(e) => setProfileDo(e.target.value)}
+          />
+        </div>
+        <div className="mt-3">
+          <input
+            type="text"
+            className="border-[1px] p-2 text-lg border-black w-full"
+            value={profileLocation}
+            placeholder="Where are you from?"
+            onChange={(e) => setProfileLocation(e.target.value)}
+          />
+        </div>
+        <div className="mt-3">
+          <input
+            type="text"
+            className="border-[1px] p-2 text-lg border-black w-full"
+            value={profileEmail}
+            placeholder="What's your email?"
+            onChange={(e) => setProfileEmail(e.target.value)}
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
+        >
+          Mint now!
+        </button>
+
+      </form>
+    </div>
+            </>
         :
         ""
         }
