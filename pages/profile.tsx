@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Moralis, { useMoralis, useMoralisFile } from "react-moralis";
 import Logo from "../assets/Logos/LOGO_gofundyourself.png"
 import { NFTStorage } from 'nft.storage'
+import TextAreaBioUpdate from '../components/TextAreaBioUpdate'
 
 import {
   BodyCon
@@ -220,6 +221,7 @@ function Profile () {
     
     /*
     ** Mapping to Moralis server
+    * varaible here -> variable in moralis _User
     * profileName -> name
     * profileDo -> profession
     * profileLocation -> location
@@ -242,6 +244,22 @@ function Profile () {
         document.getElementById("submitProfileButton").childNodes[0].nodeValue="Submitted... Go to next step!"
 
     };
+
+    const onSubmitBio = async (e) => {
+
+    // Mapping to Moralis server
+    // varaible here -> variable in moralis _User
+    // profileBio -> profileBio
+        e.preventDefault();
+        const bio: string = profileBio;
+        // @ts-ignore
+        user?.set("profileBio", bio);
+
+        await user?.save();
+    };
+
+
+    
 
   if(!isAuthenticated)
   return (
@@ -441,6 +459,43 @@ function Profile () {
             <ProfileEditsTitle>
                     Third step, your story.
             </ProfileEditsTitle>
+            
+            {/* <div className="flex w-screen h-screen items-center justify-center">
+            <form onSubmit={onSubmitBio}> */}
+                <TextAreaBioUpdate
+                    rows={12}
+                    cols={50}
+                    limit={560}
+                    value="What is your story?"
+                />
+
+                {/*
+                <div>
+                <textarea
+                    id="textAreaBio"
+                    maxlength={560}
+                    rows={12}
+                    cols={50}
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileBio}
+                    placeholder="What is your story?"
+                    onChange={(e) => setProfileBio(e.target.value)}
+                />
+                <p>
+                   
+                </p>
+                </div> */}
+
+                {/* <button 
+                type="submit"
+                id="submitBioButton"
+                className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
+                >
+                Submit
+                </button> */}
+
+            {/* </form>
+            </div> */}
             </>
             :
             ""
