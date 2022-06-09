@@ -9,14 +9,18 @@ const PersonalBio = () => {
   const profileLocation = user?.get("location");
   const profileDo = user?.get("profession"); 
   const profileEmail = user?.get("email")
+  const profileBio = user?.get("profileBio")
+
+  const style = {margin: 10}
 
   return (
     <>
-      <div>
+      <div style={style}>
         Name: {profileName} <br/>
         Location: {profileLocation} <br/>
         Profession: {profileDo} <br/>
-        Email: {profileEmail}
+        Email: {profileEmail} <br/><br/>
+        {profileBio}        
       </div>
     </>
   );
