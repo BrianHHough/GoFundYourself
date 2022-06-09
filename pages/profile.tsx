@@ -8,6 +8,7 @@ import Moralis, { useMoralis, useMoralisFile } from "react-moralis";
 import Logo from "../assets/Logos/LOGO_gofundyourself.png"
 import { NFTStorage } from 'nft.storage'
 import TextAreaBioUpdate from '../components/TextAreaBioUpdate'
+import PersonalBio from '../components/PersonalBio'
 
 import {
   BodyCon
@@ -245,18 +246,18 @@ function Profile () {
 
     };
 
-    const onSubmitBio = async (e) => {
+    // const onSubmitBio = async (e) => {
 
-    // Mapping to Moralis server
-    // varaible here -> variable in moralis _User
-    // profileBio -> profileBio
-        e.preventDefault();
-        const bio: string = profileBio;
-        // @ts-ignore
-        user?.set("profileBio", bio);
+    // // Mapping to Moralis server
+    // // varaible here -> variable in moralis _User
+    // // profileBio -> profileBio
+    //     e.preventDefault();
+    //     const bio: string = profileBio;
+    //     // @ts-ignore
+    //     user?.set("profileBio", bio);
 
-        await user?.save();
-    };
+    //     await user?.save();
+    // };
 
 
     
@@ -459,48 +460,27 @@ function Profile () {
             <ProfileEditsTitle>
                     Third step, your story.
             </ProfileEditsTitle>
-            
-            {/* <div className="flex w-screen h-screen items-center justify-center">
-            <form onSubmit={onSubmitBio}> */}
                 <TextAreaBioUpdate
                     rows={12}
                     cols={50}
                     limit={560}
                     value="What is your story?"
                 />
-
-                {/*
-                <div>
-                <textarea
-                    id="textAreaBio"
-                    maxlength={560}
-                    rows={12}
-                    cols={50}
-                    className="border-[1px] p-2 text-lg border-black w-full"
-                    value={profileBio}
-                    placeholder="What is your story?"
-                    onChange={(e) => setProfileBio(e.target.value)}
-                />
-                <p>
-                   
-                </p>
-                </div> */}
-
-                {/* <button 
-                type="submit"
-                id="submitBioButton"
-                className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
-                >
-                Submit
-                </button> */}
-
-            {/* </form>
-            </div> */}
             </>
             :
             ""
         }
 
+        {activeStep === 3 ?
+            <>
+            <ProfileEditsTitle>
+                    Confirm Your Profile
+            </ProfileEditsTitle>
+                <PersonalBio />
+            </>
+            :
+            ""
+        }
 
 
         </ProfileEditsCon>
