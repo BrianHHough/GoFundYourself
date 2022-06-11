@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Moralis, { useMoralis, useMoralisFile } from "react-moralis";
 import Logo from "../assets/Logos/LOGO_gofundyourself.png"
 import { NFTStorage } from 'nft.storage'
+import TextAreaBioUpdate from '../components/TextAreaBioUpdate'
+import PersonalBio from '../components/PersonalBio'
 
 import {
   BodyCon
@@ -31,6 +33,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import { debug } from 'console'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -102,7 +105,12 @@ function Profile () {
     const [photoFile, setPhotoFile] = useState();
     const [photoFileName, setPhotoFileName] = useState();
     const [profilePicture, setProfilePicture] = useState();
-  
+    const [profileName, setProfileName] = useState("");
+    const [profileDo, setProfileDo] = useState("");
+    const [profileLocation, setProfileLocation] = useState("");
+    const [profileEmail, setProfileEmail] = useState("");
+    const [profileBio, setProfileBio] = useState("");
+    
 
     const classes = useStyles();
 
@@ -210,6 +218,49 @@ function Profile () {
         // setProfilePicture(user?.attributes.profilePicture._url);
       };
 
+    const onSubmitProfile = async (e) => {
+    
+    /*
+    ** Mapping to Moralis server
+    * varaible here -> variable in moralis _User
+    * profileName -> name
+    * profileDo -> profession
+    * profileLocation -> location
+    * profileEmail -> email
+    */  
+        e.preventDefault();
+        const name: string = profileName;
+        const profession: string = profileDo;
+        const location: string = profileLocation;
+        const email: string = profileEmail; 
+        // @ts-ignore
+        user?.set("name", name);
+        user?.set("profession", profession);
+        user?.set("location", location);
+        user?.set("email", email);
+
+        await user?.save();
+        
+        //Change text on submit button after user submits their info
+        document.getElementById("submitProfileButton").childNodes[0].nodeValue="Submitted... Go to next step!"
+
+    };
+
+    // const onSubmitBio = async (e) => {
+
+    // // Mapping to Moralis server
+    // // varaible here -> variable in moralis _User
+    // // profileBio -> profileBio
+    //     e.preventDefault();
+    //     const bio: string = profileBio;
+    //     // @ts-ignore
+    //     user?.set("profileBio", bio);
+
+    //     await user?.save();
+    // };
+
+
+    
 
   if(!isAuthenticated)
   return (
@@ -341,13 +392,96 @@ function Profile () {
             // Ta-da!
             // </>
         }
+ 
+
+        
         {activeStep === 1 ?
-        <>
-        <div>hello</div>
-        </>
+            <>
+            <ProfileEditsTitle>
+                Second step, some basic information.
+            </ProfileEditsTitle>
+            <div className="flex w-screen h-screen items-center justify-center">
+            <form onSubmit={onSubmitProfile}>
+                <div>
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileName}
+                    placeholder="What is your name?"
+                    onChange={(e) => setProfileName(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileDo}
+                    placeholder="What do you do?"
+                    onChange={(e) => setProfileDo(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileLocation}
+                    placeholder="Where are you from?"
+                    onChange={(e) => setProfileLocation(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileEmail}
+                    placeholder="What's your email?"
+                    onChange={(e) => setProfileEmail(e.target.value)}
+                />
+                </div>
+
+
+                <button
+                type="submit"
+                id="submitProfileButton"
+                className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
+                >
+                Submit
+                </button>
+
+            </form>
+            </div>
+            </>
         :
         ""
         }
+
+        {activeStep === 2 ?
+            <>
+            <ProfileEditsTitle>
+                    Third step, your story.
+            </ProfileEditsTitle>
+                <TextAreaBioUpdate
+                    rows={12}
+                    cols={50}
+                    limit={560}
+                    value="What is your story?"
+                />
+            </>
+            :
+            ""
+        }
+
+        {activeStep === 3 ?
+            <>
+            <ProfileEditsTitle>
+                    Confirm Your Profile
+            </ProfileEditsTitle>
+                <PersonalBio />
+            </>
+            :
+            ""
+        }
+
 
         </ProfileEditsCon>
 
