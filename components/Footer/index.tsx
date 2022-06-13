@@ -38,7 +38,7 @@ function NavBar (): JSX.Element[] | any {
                 
                 <div style={{marginTop: "5px"}}>
                 <FooterLogosCon>
-                    <Link href="https://discord.gg/bpgXXn8UcH" passHref>
+                    <Link href="https://discord.gg/RTaEU3bJ" passHref>
                         <a target="_blank" rel="noreferrer">
                             <Image src={DiscordLogo} height="30px" width="30px" alt="Discord logo"/>
                         </a>
