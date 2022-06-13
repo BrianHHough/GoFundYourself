@@ -187,10 +187,12 @@ function Profile () {
     //   const src = URL.createObjectURL(new Blob([file], { type: 'image/*'}))
     //   setFileSrc(src)
     // }, [file])
-    const storeFileWithNftStorage = async (e) => {
-        debugger;
-        console.log(e.target.files[0])
-    };
+
+
+    // const storeFileWithNftStorage = async (e) => {
+    //     debugger;
+    //     console.log(file)
+    // };
     
 
     // const storeFileWithNftStorage = async () => {
@@ -198,22 +200,53 @@ function Profile () {
     //     if (!token) {
     //         throw new Error('No NFT Storage token')
     //     }
-        
     //     debugger;
+    //     if(!file) {
+    //         throw new Error('No file')
+    //     }
+        
     //     const client = new NFTStorage({ token: token })
 
-    //     // const cid = await client.storeDirectory([file])
-    //     // const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`
-    //     // return {
-    //     //     "cid",
-    //     //     "gatewayUrl"
-    //     // }
+    //     const cid = await client.storeDirectory([file])
+    //     const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`
+    //     console.log(cid, gatewayUrl)
+    //     return {
+    //         cid,
+    //         gatewayUrl
+    //     }
     // }
+
+
+     async function storeFileWithNftStorage() {
+        const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
+        if (!token) {
+            throw new Error('No NFT Storage token')
+        }
+        debugger;
+        if(!file) {
+            throw new Error('No file')
+        }
+        
+        const client = new NFTStorage({ token: token })
+
+        const cid = await client.storeDirectory([file])
+        const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`
+        console.log(cid, gatewayUrl)
+        return {
+            cid,
+            gatewayUrl
+        }
+    }
 
     const onChangePhoto = (e) => {
         setPhotoFile(e.target.files[0]);
         setPhotoFileName(e.target.files[0].name);
       };
+
+      const onChangeFile = (e) => {
+        setFile(e.target.files[0]);
+      };
+     
 
     const onSubmitPhoto = async () => {
         const file: any = photoFile;
@@ -373,7 +406,7 @@ function Profile () {
                     type="file"
                     name="myfile"
                     ref={inputFileRef}
-                    onChange={onChangePhoto}
+                    onChange={onChangeFile}
             />
             <SaveProfileInformationCon>
                 <SaveProfileInformation 
