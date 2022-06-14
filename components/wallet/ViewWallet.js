@@ -6,7 +6,7 @@ import SingleWallet from "../wallet/singleWallet/SingleWallet";
 const ViewWallet = () => {
   return (
     <>
-      <h4>Your wallet</h4>
+      <h4 className={classes.title}>Your wallet</h4>
       <Collapsible className={classes.container} trigger="See your tokens">
         <SingleWallet />
       </Collapsible>

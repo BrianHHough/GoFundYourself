@@ -19,11 +19,11 @@ const SingleNetwork = () => {
         <p className={classes.title}></p>
       </div>
       <div className={classes.text}>
-        <h4>{userInfo.name}</h4>
-        <p>{userInfo.job}</p>
-        <p>{userInfo.money}</p>
+        <h4 className={classes.p}>{userInfo.name}</h4>
+        <p className={classes.p}>{userInfo.job}</p>
+        <p className={classes.p}>{userInfo.money}</p>
       </div>
-      <div>
+      <div className={classes.link}>
         View Full Profile <ArrowForwardIcon />
       </div>
     </section>

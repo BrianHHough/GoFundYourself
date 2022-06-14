@@ -15,15 +15,16 @@ const ProfileInfo = () => {
   return (
     <Collapse className={classes.collapseTransition} isOpen={isOpen}>
       <div className={classes.container}>
-        <h4 className={classes.title}>{`Welcome back ${userBasic.name}`}</h4>
-        <p className={classes.text}>
-          {`You've backed ${userBasic.projectNum} projects`}
-        </p>
+        <p className={classes.title}>{`Welcome back ${userBasic.name}`}</p>
+        <p
+          className={classes.text}
+        >{`You've backed ${userBasic.projectNum} projects`}</p>
         <p
           className={classes.text}
         >{`Total of ${userBasic.userMoney} given to dreamers`}</p>
         <p className={classes.text}>{`You're truly awesome!`}</p>
         <HighlightOffIcon
+          fontSize="small"
           onClick={() => {
             setIsOpen(false);
           }}

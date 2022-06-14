@@ -17,7 +17,10 @@ const PublicBio = () => {
           <img className={classes.img} src={info.image} alt={info.id} />{" "}
         </div>
         <div className={classes.content}>
-          <h4>Hi, {info.userName}</h4>
+          <p className={classes.p}>
+            Hi,
+            {info.userName}
+          </p>
           <Link href="/">Edit Profile</Link>
         </div>
       </section>

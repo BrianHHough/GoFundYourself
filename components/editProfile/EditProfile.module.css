@@ -1,23 +1,28 @@
 .container {
-    width: 18vw;
-    height: 20vh;
+    width: 13vw;
+    height: 10vh;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content:space-around;
+    justify-content:space-evenly;
     border: 5px solid black;
     border-radius: 20px;
   }
   
   .content {
-    padding: 0;
     text-align: center;
+    padding: 0;
+    margin: 0;
+    font-size: x-small;
   }
   
   .img {
-    width: 80px;
-    height: 75px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%
   }
 
+  .p{
+    font-weight: bold;
+}
   

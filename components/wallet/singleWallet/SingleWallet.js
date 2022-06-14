@@ -16,29 +16,29 @@ const SingleWallet = () => {
         className={classes.container}
         src={wallet1}
         alt="walltet1"
-        width="100"
-        height="100"
+        width="80"
+        height="80"
       />
       <Image
         className={classes.container}
         src={wallet4}
         alt="walltet4"
-        width="100"
-        height="100"
+        width="80"
+        height="80"
       />
       <Image
         className={classes.container}
         src={wallet3}
         alt="walltet3"
-        width="100"
-        height="100"
+        width="80"
+        height="80"
       />
       <Image
         className={classes.container}
         src={wallet6}
         alt="walltet6"
-        width="100"
-        height="100"
+        width="80"
+        height="80"
       />
     </section>
   );

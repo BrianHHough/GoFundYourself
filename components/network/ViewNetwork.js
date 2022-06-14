@@ -8,7 +8,7 @@ import NetworkTitle from "../../components/network/title/NetworkTitle";
 const ViewNetwork = () => {
   return (
     <>
-      <h4>Your network</h4>
+      <h4 className={classes.title}>Your network</h4>
       <Collapsible className={classes.container} trigger={<NetworkTitle />}>
         <SingleNetwork />
       </Collapsible>

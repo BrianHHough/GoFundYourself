@@ -2,10 +2,11 @@
   background: black;
   color: white;
   width: 30vw;
-  height: 30vh;
+  height: 18vh;
   border: 5px black solid;
-  border-radius: 10px;
+  border-radius: 20px;
   text-align: center;
+  font-size: xx-small;
 }
 
 .collapseTransition {
@@ -13,11 +14,11 @@
 }
 
 .title {
-  text-align: center;
+  font-size: small;
+  font-weight: bolder;
+  margin: 3px;
 }
 
-.text{
-  margin: 0;
-  padding: 0;
-  text-align: center;
+.text {
+  margin: 8px;
 }

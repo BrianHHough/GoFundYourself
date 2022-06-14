@@ -10,7 +10,6 @@ const NetworkTitle = () => {
       <p className={classes.title}></p>
       <p className={classes.title}></p>
       <p className={classes.title}></p>
-      <p className={classes.title}></p>
     </div>
   );
 };
