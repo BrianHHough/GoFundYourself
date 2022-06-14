@@ -32,7 +32,10 @@
     "react-router-dom": "^6.2.2",
     "styled-components": "^5.3.3",
     "swr": "^1.2.2",
-    "web3": "^1.7.1"
+    "web3": "^1.7.1",
+    "react-collapsible": "^2.9.0",
+    "@kunukn/react-collapse": "^2.2.9",
+    "@coreui/react": "^4.2.2"
   },
   "devDependencies": {
     "@types/node": "17.0.14",

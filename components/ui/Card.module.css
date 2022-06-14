@@ -1,0 +1,12 @@
+.card {
+  background-color: white;
+  border: 5px black solid;
+  border-radius: 20px;
+  height: 70vh;
+  width: 40vw;
+  margin: 5rem;
+  position: relative;
+  background: rgb(255, 255, 255);
+  display: flex;
+  box-shadow: 0 8px 12px -2px gray;
+}

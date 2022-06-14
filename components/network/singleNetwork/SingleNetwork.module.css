@@ -1,0 +1,59 @@
+.sectionContainer{
+    width: 35vw;
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 5px black solid;
+    border-radius: 10px;
+    padding: 0; 
+    margin: 0;
+}
+
+.container {
+  width: 35vw;
+    height: 45vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.firstTitle {
+  width: 40px;
+  height: 40px;
+  border: 3px rgb(255, 187, 41) solid;
+  border-radius: 50%;
+}
+
+.secondTitle {
+  width: 40px;
+  height: 40px;
+  border: 3px rgb(125, 141, 150) solid;
+  border-radius: 50%;
+}
+
+.thirdTitle {
+  width: 50px;
+  height: 50px;
+  border: 3px rgb(211, 126, 0) solid;
+  border-radius: 50%;
+}
+
+.title {
+  width: 40px;
+  height: 40px;
+  border: 3px rgb(0, 0, 0) solid;
+  border-radius: 50%;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: first baseline;
+  padding: 0;
+  margin: 0;
+  font-size: small;
+}

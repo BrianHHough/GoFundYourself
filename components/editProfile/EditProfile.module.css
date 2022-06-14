@@ -1,0 +1,23 @@
+.container {
+    width: 18vw;
+    height: 20vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+    border: 5px solid black;
+    border-radius: 20px;
+  }
+  
+  .content {
+    padding: 0;
+    text-align: center;
+  }
+  
+  .img {
+    width: 80px;
+    height: 75px;
+    border-radius: 50%
+  }
+
+  
