@@ -133,6 +133,14 @@ export const ProjectCardCon = styled.div`
     width: 60%;
 `;
 
+export const ProjectNoFlex = styled.div`
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    top: 10%;
+    width: 60%;
+`;
+
 export const ProjectCardButton = styled.div`
     margin-left: 10px;
     margin-right: 10px;

@@ -1,7 +1,7 @@
-# GoFundYourself
+# GoFundYourself ![](https://user-images.githubusercontent.com/62179036/170808474-25aef53f-c545-4b6d-b1e3-e8df562918fa.png)
 
 Getting funding for your passion project, needs or dream doesn't have to be a nightmare!
-> check out our [live demo on Fleek](https://gofundyourself.netlify.app/)
+> check out our [live demo on Netlify](https://gofundyourself.netlify.app/)
 
 ### Let's Funding Thoughtfully Go! LFTG!
 
@@ -10,19 +10,24 @@ Getting funding for your passion project, needs or dream doesn't have to be a ni
 ## Installing
 
 1. git clone this repo
-1. npm install nft.storage
-1. npm install
+1. npm install or just yarn
+1. if error (nvm use 16)
 1. set up .env
-1. npm run dev
+1. npm run dev 
+1. make sure to upload a picture!
 
 ### .env settings:
 > you should create an empty .env file in the root directory, and fill it with these values (ask a dev for help, or get yer own variables!)
 
 NEXT_PUBLIC_MORALIS_APP_ID=Ryl3...
+
 NEXT_PUBLIC_MORALIS_SERVER_URL=https:...
+
 NEXT_PUBLIC_COVALENT_API_KEY=ckey_f...
+
 NEXT_PUBLIC_NFT_STORAGE_API=reallylong...
 
+![Frame_24](https://user-images.githubusercontent.com/62179036/170808449-43b11793-b50f-4a3f-b788-d55a11ac1665.png)
 
 ## NextJS Boilerplate
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

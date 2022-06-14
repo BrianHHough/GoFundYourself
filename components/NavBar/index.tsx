@@ -23,10 +23,12 @@ function NavBar (): JSX.Element[] | any {
     } = useMoralis();
     return (
         <NavBarCon>
-            <NavBarLogo>
-                <Image src={Logo} alt="logo" height="70px" width="70px"/>
-                GoFundYourself
-            </NavBarLogo>
+            <Link href="/" passHref>
+                <NavBarLogo>
+                    <Image src={Logo} alt="logo" height="70px" width="70px"/>
+                    GoFundYourself
+                </NavBarLogo>
+            </Link>
             {isAuthenticated ?
             <Link href="/profile" passHref>
                 <NavBarConnectWallet>

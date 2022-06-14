@@ -1,11 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { makeStyles } from '@material-ui/core/styles';
-import Moralis, { useMoralis } from "react-moralis";
+import Moralis, { useMoralis, useMoralisFile } from "react-moralis";
 import Logo from "../assets/Logos/LOGO_gofundyourself.png"
+import { NFTStorage } from 'nft.storage'
+import TextAreaBioUpdate from '../components/TextAreaBioUpdate'
+import PersonalBio from '../components/PersonalBio'
+import {
+    NavBarCon, NavBarLogo, NavBarConnectWallet
+} from "../components/NavBar/NavBarElements"
 
 import {
   BodyCon
@@ -30,6 +36,9 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import { debug } from 'console'
+import Link from 'next/link'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,20 +53,28 @@ const useStyles = makeStyles((theme) => ({
     input: {
         //   display: "none",
         position: 'relative',
-        top: 230,
+        left: "50%",
+        transform: "translateX(-50%)",
+        // top: 230,
         
         // marginTop: "50px"
         
     },
     large: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
+        width: 160,
+        height: 160,
         color: "#00FCB9",
+        
         //   marginTop: "20px"
         // left: "50%",
         // transform: "translateX(-30%)",
-        position: "relative",
-    },
+        // left: "50%",
+        // transform: "translateX(-50%)",
+        // position: "relative",
+        // left: "50%",
+        // transform: "translateX(-50%)",
+        
+    }
   }));
 
 const steps = [
@@ -86,16 +103,34 @@ function Profile () {
         user,
     } = useMoralis();
 
+    const { saveFile, moralisFile } = useMoralisFile();
+    const [photoFile, setPhotoFile] = useState(null); //selectedImage, setSelectedImage
+    const [photoFileName, setPhotoFileName] = useState();
+    const [profilePicture, setProfilePicture] = useState(); //imageUrl, setImageUrl
+    const [profileName, setProfileName] = useState("");
+    const [profileDo, setProfileDo] = useState("");
+    const [profileLocation, setProfileLocation] = useState("");
+    const [profileEmail, setProfileEmail] = useState("");
+    const [profileBio, setProfileBio] = useState("");
+    
+
     const classes = useStyles();
 
     const [activeStep, setActiveStep] = useState(0);
     const userAddress = user?.get("ethAddress");
     const userPFP = user?.get("profilePicture");
+    console.log(userPFP)
 
     const [name, setName] = useState("");
     const [isLoading, setIsLoading] = React.useState(false);
-    const [file, setFile] = useState('')
+    const [file, setFile] = useState("")
+    const [fileSrc, setFileSrc] = useState("")
     const inputFileRef = React.useRef<HTMLInputElement | null>(null);
+    console.log(file)
+
+    console.log(inputFileRef)
+    console.log(fileSrc);
+    console.log(file);
   
     //   PROGRESS STEPPER
     const handleNext = () => {
@@ -150,9 +185,96 @@ function Profile () {
         setIsLoading(false);
     };
 
-
+    // useEffect(() => {
+    //   const src = URL.createObjectURL(new Blob([file], { type: 'image/*'}))
+    //   setFileSrc(src)
+    // }, [file])
     
 
+    async function storeFileWithNftStorage(file: File) {
+        const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY
+        if (!token) {
+            throw new Error('No NFT Storage token')
+        }
+    
+        const client = new NFTStorage({ token: token })
+        const cid = await client.storeDirectory([file])
+        const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`
+        return {
+            cid,
+            gatewayUrl
+        }
+    }
+    const onChangePhoto = (e) => {
+        setPhotoFile(e.target.files[0]);
+        setPhotoFileName(e.target.files[0].name);
+      };
+
+    useEffect(() => {
+        if (photoFile) {
+            setProfilePicture(URL.createObjectURL(photoFile));
+        }
+    }, [photoFile]);
+
+   // const [photoFile, setPhotoFile] = useState(null); //selectedImage, setSelectedImage
+   // const [photoFileName, setPhotoFileName] = useState();
+   // const [profilePicture, setProfilePicture] = useState(); //imageUrl, setImageUrl
+
+    const onSubmitPhoto = async () => {
+        const file: any = photoFile;
+        const name: any = photoFileName;
+        let fileIpfs = await saveFile(name, file, { saveIPFS: true });
+        // @ts-ignore
+        user?.set("profilePicture", fileIpfs?._ipfs);
+        await user?.save();
+        // setProfilePicture(user?.attributes.profilePicture._url);
+      };
+
+    const onSubmitProfile = async (e) => {
+    
+    /*
+    ** Mapping to Moralis server
+    * varaible here -> variable in moralis _User
+    * profileName -> name
+    * profileDo -> profession
+    * profileLocation -> location
+    * profileEmail -> email
+    */  
+        e.preventDefault();
+        const name: string = profileName;
+        const profession: string = profileDo;
+        const location: string = profileLocation;
+        const email: string = profileEmail; 
+        // @ts-ignore
+        user?.set("name", name);
+        user?.set("profession", profession);
+        user?.set("location", location);
+        user?.set("email", email);
+
+        await user?.save();
+        
+        //Change text on submit button after user submits their info
+        document.getElementById("submitProfileButton").childNodes[0].nodeValue="Submitted... Go to next step!"
+
+    };
+
+
+
+    // const onSubmitBio = async (e) => {
+
+    // // Mapping to Moralis server
+    // // varaible here -> variable in moralis _User
+    // // profileBio -> profileBio
+    //     e.preventDefault();
+    //     const bio: string = profileBio;
+    //     // @ts-ignore
+    //     user?.set("profileBio", bio);
+
+    //     await user?.save();
+    // };
+
+
+    
 
   if(!isAuthenticated)
   return (
@@ -173,7 +295,7 @@ function Profile () {
         </Head>
       </div>
       <BodyCon>
-      <h1>Hey you are logged in authenticated!</h1>
+      <h1>Hey there, welcome to GoFundYourself!</h1>
     <ColumnCon>
 
       <ColumnLeft>
@@ -215,15 +337,20 @@ function Profile () {
                 </Step>
                 ))}
             </Stepper>
-            {activeStep === steps.length && (
-                <Paper square elevation={0} sx={{ p: 3 }}>
-                <Typography>All steps completed - you&apos;re finished</Typography>
-                <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                    Reset
-                </Button>
-                </Paper>
-            )}
-            </Box>
+        {activeStep === steps.length && (
+            <Paper square elevation={0} sx={{ p: 3 }}>
+            <Typography>All steps completed - you&apos;re finished</Typography>
+            <Link  href={{ pathname: '/userid', query: { keyword: 'F way' } }}  passHref>
+            <NavBarConnectWallet>
+                Go to profile
+            </NavBarConnectWallet>
+            </Link>
+            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                Reset
+            </Button>
+            </Paper>
+        )}
+        </Box>
         </ProgressStepper>
     </ColumnLeft>
 
@@ -231,53 +358,150 @@ function Profile () {
         <ProfileEditsCon>
 
         {/* Add Profile Step */}
-        {activeStep === 0 
-        && (userPFP == null || undefined  ?
+        {activeStep === 0  ?
             <>
             <ProfileEditsTitle>
                 First step, pick a profile picture!
             </ProfileEditsTitle>
+            {profilePicture === undefined ? 
             <div className={classes.root}>
-
-            <input 
-                accept="image/*" 
-                className={classes.input} 
-                id="icon-button-file" 
-                type="file"
-                name="myfile" 
-                ref={inputFileRef}
-            />
                 <label htmlFor="icon-button-file">
                     <IconButton color="primary" aria-label="upload picture" component="span">
-
-                    {inputFileRef.current?.files?.length === undefined || null ? 
-                    // @ts-ignore
-                    <Image src={Logo} alt="to mint" width="160" height="160"/>
-                    : 
                     <Avatar className={classes.large}/>
-                    }
                     </IconButton>
                 </label>
             </div>
+            :
+            <div style={{width: "100%", transform: "translateX(35%)", marginTop: "20px"}}>
+                <Image src={profilePicture} alt="logo" width="160" height="160" className={classes.imagePreview}/>
+            </div>
+            }
+            <div style={{width: "100%"}}>
+            </div>
+            <input 
+                    accept="image/*" 
+                    className={classes.input} 
+                    id="icon-button-file" 
+                    type="file"
+                    name="myfile"
+                    ref={inputFileRef}
+                    onChange={onChangePhoto}
+            />
             <SaveProfileInformationCon>
                 <SaveProfileInformation 
                     style={{justifyContent: "center"}}
                     type="submit"
                     value={isLoading? "Minting..." : "Upload to IPFS" }
                     disabled={isLoading} 
-                    onClick={handleOnClick}
+                    // @ts-ignore
+                    // onClick={storeFileWithNftStorage(file)}
+                    onClick={onSubmitPhoto}
                 />
             </SaveProfileInformationCon>
             </>
             : 
             ""
-            )
-        || (userPFP > 0 ? 
-            <ProfileEditsTitle>You already have a profile picture:</ProfileEditsTitle>
+            // <>
+            // <ProfileEditsTitle>
+            //     You already have a profile picture:
+            // </ProfileEditsTitle>
+            // <div style={{width: "100%", transform: "translateX(35%)", marginTop: "20px"}}>
+            //     <Image src={userPFP} alt="logo" width="160" height="160" className={classes.imagePreview}/>
+            // </div>
+            // Ta-da!
+            // </>
+        }
+ 
+
+        
+        {activeStep === 1 ?
+            <>
+            <ProfileEditsTitle>
+                Second step, some basic information.
+            </ProfileEditsTitle>
+            <div className="flex w-screen h-screen items-center justify-center">
+            <form onSubmit={onSubmitProfile}>
+                <div>
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileName}
+                    placeholder="What is your name?"
+                    onChange={(e) => setProfileName(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileDo}
+                    placeholder="What do you do?"
+                    onChange={(e) => setProfileDo(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileLocation}
+                    placeholder="Where are you from?"
+                    onChange={(e) => setProfileLocation(e.target.value)}
+                />
+                </div>
+                <div className="mt-3">
+                <input
+                    type="text"
+                    className="border-[1px] p-2 text-lg border-black w-full"
+                    value={profileEmail}
+                    placeholder="What's your email?"
+                    onChange={(e) => setProfileEmail(e.target.value)}
+                />
+                </div>
+
+
+                <button
+                type="submit"
+                id="submitProfileButton"
+                className="mt-5 w-full p-5 bg-green-700 text-white text-lg rounded-xl animate-pulse"
+                >
+                Submit
+                </button>
+
+            </form>
+            </div>
+            </>
+        :
+        ""
+        }
+
+        {activeStep === 2 ?
+            <>
+            <ProfileEditsTitle>
+                    Third step, your story.
+            </ProfileEditsTitle>
+                <TextAreaBioUpdate
+                    rows={12}
+                    cols={50}
+                    limit={560}
+                    value="What is your story?"
+                />
+            </>
             :
             ""
-            )
         }
+
+        {activeStep === 3 ?
+            <>
+            <ProfileEditsTitle>
+                    Confirm Your Profile
+            </ProfileEditsTitle>
+                <PersonalBio />
+            </>
+            :
+            ""
+        }
+
+
         </ProfileEditsCon>
 
     </ColumnRight>

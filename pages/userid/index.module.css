@@ -1,0 +1,30 @@
+.container {
+    min-height: 100vh;
+    margin: 1rem 0 0 6rem ;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.sectionLeft {
+    margin-top: 2rem;
+    width: 45vw;
+    height: 100vh;
+    position: relative;
+}
+
+.sectionRight {
+    margin-left: 5rem;
+    width: 45vw;
+    height: 100vh;
+    position: relative;
+}
+
+.edit {
+    margin-left: 20rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    padding: 10px;
+    padding-top: 0;
+}
+

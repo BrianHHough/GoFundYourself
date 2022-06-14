@@ -1,0 +1,39 @@
+.sectionLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 2rem;
+}
+
+.frame {
+  border: black 5px solid;
+  border-radius: 10px;
+  background-color: white;
+  text-align: center;
+}
+
+.middleFrame {
+  border: black 5px solid;
+  border-radius: 10px;
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.lastFrame {
+  border: black 5px solid;
+  border-radius: 10px;
+  background-color: white;
+  text-align: center;
+  font-size: xx-small;
+}
+
+.img {
+  width: 100px;
+  height: 80px;
+}
+
+.sectionRight {
+  margin: 2rem;
+}

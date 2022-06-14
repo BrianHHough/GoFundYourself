@@ -1,0 +1,15 @@
+profile, make a project, fund a project, see who's in your network (how many have you funded, how many people have funded you) 
+profile borders
+
+struct project
+
+struct userInfo
+    project projectHistory[]
+    //bio
+
+contract
+    mapping(address => userInfo) users;
+    makeProfile()
+
+
+Nft

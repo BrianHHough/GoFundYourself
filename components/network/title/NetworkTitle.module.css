@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 30vw;
+    height: 10vh;
+}
+
+.firstTitle {
+    width: 30px;
+    height: 30px;
+    border: 3px rgb(255, 187, 41) solid;
+    border-radius: 50%;
+  }
+
+  .secondTitle {
+    width: 30px;
+    height: 30px;
+    border: 3px rgb(125, 141, 150) solid;
+    border-radius: 50%;
+  }
+
+  .thirdTitle {
+    width: 30px;
+    height: 30px;
+    border: 3px rgb(211, 126, 0) solid;
+    border-radius: 50%;
+  }
+
+  .title {
+    width: 30px;
+    height: 30px;
+    border: 3px rgb(0, 0, 0) solid;
+    border-radius: 50%;
+  }
+
