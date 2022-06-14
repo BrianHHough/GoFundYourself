@@ -644,9 +644,15 @@ function ProjectCreation() {
   const { data, error, fetch, isFetching } = useWeb3ExecuteFunction({
     abi: ABI,
     contractAddress: contractAddress,
-    functionName: "symbol",
-    // params: {
-    //   secondsAgos: [0, 10],
+    functionName: "newProjectCreator",
+    params: {
+      jobs: 12,
+      jobTimeLimit: 1000,
+      tokenURI: "https://www.google.com",
+    },
+    // overrides: {
+    //   gasPrice: 3000000000,
+    //   gasLimit: 300000000,
     // },
   });
 
@@ -741,7 +747,7 @@ function ProjectCreation() {
       <>
         <div>hello</div>
         <div>
-            {error && <h1> {error} </h1>}
+            {error && <h1>  <div>{JSON.stringify(error)}</div> </h1>}
             <button onClick={ MoralisFetch }  disabled={isFetching}>Fetch data</button>
             {data && <pre>
             {JSON.stringify(data)}
