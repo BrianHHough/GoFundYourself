@@ -58,7 +58,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     }
 
     modifier tokenOwner(uint256 jobIndex) {
-      require(msg.sender == ownerOf(jobIndex));
+      require(msg.sender == ownerOf(jobIndex), "Not token owner");
       _;
    }
 
@@ -111,8 +111,8 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
 
     function mintNFT(address projectCreatorAddress, uint16 t) public {
         currency cur = currency(t); 
-        require(projectCreators[projectCreatorAddress].jobsMinted <= projectCreators[projectCreatorAddress].jobs);
-        require(msg.sender != projectCreatorAddress);
+        require(projectCreators[projectCreatorAddress].jobsMinted <= projectCreators[projectCreatorAddress].jobs, "Two many jobs minted");
+        require(msg.sender != projectCreatorAddress, "Cannot mint your own project");
         tokenIdToStatus[tokenCounter] = tokenStatus(0);
         tokenIdToProjectCreator[tokenCounter] = projectCreatorAddress;
         tokenIdToExpiryTime[tokenCounter] = block.timestamp + projectCreators[projectCreatorAddress].jobTimeLimit;
@@ -139,15 +139,18 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     }
 
     function newProjectCreator(uint16 jobs, uint256 jobTimeLimit, string memory tokenURI) public {
-        require(projectCreators[msg.sender].maxJobLevel == 0);//make sure ProjectCreator does not exest
+        require(projectCreators[msg.sender].maxJobLevel == 0, "Your profile already exists");//make sure ProjectCreator does not exest
         projectCreators[msg.sender].maxJobLevel = 1;
         projectCreatorChangeJob(jobs, jobTimeLimit, 1, tokenURI);
     }
 
     function projectCreatorChangeJob(uint16 jobs, uint256 jobTimeLimit, uint16 jobLevel, string memory tokenURI) public {
-        require(jobs <= jobLimit && jobs > 0);
-        require(projectCreators[msg.sender].maxJobLevel != 0);//make sure ProjectCreator exests
-        require(jobLevel >= projectCreators[msg.sender].maxJobLevel);
+        require(jobs <= jobLimit, "Jobs argument is to high");
+        require(jobs > 0, "Jobs needs to be 1 or more");
+        require(projectCreators[msg.sender].maxJobLevel != 0, "Project creator already exests");//make sure ProjectCreator exests
+        require(jobLevel <= projectCreators[msg.sender].maxJobLevel, "You need to complete more projects to do that");
+        require(jobLevel < 5 && jobLevel > 0, "No");
+
         projectCreators[msg.sender].totalJobCost = jobCostLevels[jobLevel];
         projectCreators[msg.sender].jobs = jobs;
         projectCreators[msg.sender].jobTimeLimit = jobTimeLimit;
@@ -162,7 +165,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
         address projectCreatorAddress = tokenIdToProjectCreator[jobIndex];
 
         //check if URIs match
-        require(keccak256(abi.encodePacked(projectCreators[projectCreatorAddress].tokenURI)) == keccak256(abi.encodePacked(tokenURI(jobIndex))));
+        require(keccak256(abi.encodePacked(projectCreators[projectCreatorAddress].tokenURI)) == keccak256(abi.encodePacked(tokenURI(jobIndex))), "Token URIs dont match");
         projectCreators[projectCreatorAddress].jobsCompleted++;
         tokenIdToStatus[jobIndex] = tokenStatus(1);
         emit FinishProject(jobIndex);
@@ -173,7 +176,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     }
     
     function upgradeProjectCreator() public {
-        require(projectCreators[msg.sender].jobsCompleted == projectCreators[msg.sender].jobs);
+        require(projectCreators[msg.sender].jobsCompleted == projectCreators[msg.sender].jobs, "Cannot upgrade yet");
         projectCreators[msg.sender].maxJobLevel = projectCreators[msg.sender].maxJobLevel + 1;
         projectCreators[msg.sender].jobsCompleted = 0;
         
@@ -186,7 +189,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
             if(tokenIdToStatus[i] == tokenStatus(0) && tokenIdToExpiryTime[i] > block.timestamp){
                 upkeepNeeded = true;
                 performData = abi.encodePacked(i);
-            } 
+            }
         }
         upkeepNeeded = false;
     }
