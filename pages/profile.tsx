@@ -9,6 +9,9 @@ import Logo from "../assets/Logos/LOGO_gofundyourself.png"
 import { NFTStorage } from 'nft.storage'
 import TextAreaBioUpdate from '../components/TextAreaBioUpdate'
 import PersonalBio from '../components/PersonalBio'
+import {
+    NavBarCon, NavBarLogo, NavBarConnectWallet
+} from "../components/NavBar/NavBarElements"
 
 import {
   BodyCon
@@ -34,6 +37,8 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import { debug } from 'console'
+import Link from 'next/link'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -335,6 +340,11 @@ function Profile () {
         {activeStep === steps.length && (
             <Paper square elevation={0} sx={{ p: 3 }}>
             <Typography>All steps completed - you&apos;re finished</Typography>
+            <Link  href={{ pathname: '/userid', query: { keyword: 'F way' } }}  passHref>
+            <NavBarConnectWallet>
+                Go to profile
+            </NavBarConnectWallet>
+            </Link>
             <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
                 Reset
             </Button>
