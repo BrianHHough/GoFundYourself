@@ -184,66 +184,27 @@ function Profile () {
     //   const src = URL.createObjectURL(new Blob([file], { type: 'image/*'}))
     //   setFileSrc(src)
     // }, [file])
-
-
-    // const storeFileWithNftStorage = async (e) => {
-    //     debugger;
-    //     console.log(file)
-    // };
     
 
-    // const storeFileWithNftStorage = async () => {
-    //     const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
-    //     if (!token) {
-    //         throw new Error('No NFT Storage token')
-    //     }
-    //     debugger;
-    //     if(!file) {
-    //         throw new Error('No file')
-    //     }
-        
-    //     const client = new NFTStorage({ token: token })
-
-    //     const cid = await client.storeDirectory([file])
-    //     const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`
-    //     console.log(cid, gatewayUrl)
-    //     return {
-    //         cid,
-    //         gatewayUrl
-    //     }
-    // }
-
-
-     async function storeFileWithNftStorage() {
-        const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
+    async function storeFileWithNftStorage(file: File) {
+        const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY
         if (!token) {
             throw new Error('No NFT Storage token')
         }
-        debugger;
-        if(!file) {
-            throw new Error('No file')
-        }
-        
+    
         const client = new NFTStorage({ token: token })
-
         const cid = await client.storeDirectory([file])
         const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`
-        console.log(cid, gatewayUrl)
         return {
             cid,
             gatewayUrl
         }
     }
-
     const onChangePhoto = (e) => {
         setPhotoFile(e.target.files[0]);
         setPhotoFileName(e.target.files[0].name);
       };
 
-      const onChangeFile = (e) => {
-        setFile(e.target.files[0]);
-      };
-     
     useEffect(() => {
         if (photoFile) {
             setProfilePicture(URL.createObjectURL(photoFile));
@@ -414,7 +375,7 @@ function Profile () {
                     type="file"
                     name="myfile"
                     ref={inputFileRef}
-                    onChange={onChangeFile}
+                    onChange={onChangePhoto}
             />
             <SaveProfileInformationCon>
                 <SaveProfileInformation 
@@ -423,8 +384,8 @@ function Profile () {
                     value={isLoading? "Minting..." : "Upload to IPFS" }
                     disabled={isLoading} 
                     // @ts-ignore
-                    onClick={storeFileWithNftStorage}
-                    // onClick={onSubmitPhoto}
+                    // onClick={storeFileWithNftStorage(file)}
+                    onClick={onSubmitPhoto}
                 />
             </SaveProfileInformationCon>
             </>
