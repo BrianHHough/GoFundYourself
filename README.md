@@ -10,10 +10,11 @@ Getting funding for your passion project, needs or dream doesn't have to be a ni
 ## Installing
 
 1. git clone this repo
-1. npm install nft.storage
-1. npm install
+1. npm install or just yarn
+1. if error (nvm use 16)
 1. set up .env
-1. npm run dev
+1. npm run dev 
+1. make sure to upload a picture!
 
 ### .env settings:
 > you should create an empty .env file in the root directory, and fill it with these values (ask a dev for help, or get yer own variables!)
