@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { makeStyles } from "@material-ui/core/styles";
-import Moralis, { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
+import Moralis, { useMoralis, useWeb3ExecuteFunction, useMoralisWeb3Api } from "react-moralis";
 import Logo from "../assets/Logos/LOGO_gofundyourself.png";
 
 import { BodyCon } from "../components/HomePage/HomePageElements";
@@ -115,44 +115,6 @@ const steps = [
 
 ////////////////////////////////////////
 
-const ABI = [
-  {
-    inputs: [],
-    name: "message",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_newMessage",
-        type: "string",
-      },
-    ],
-    name: "setMessage",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-];
-
-const readOptions = {
-  contractAddress: "0xe...56",
-  functionName: "message",
-  abi: ABI,
-};
-
-const message = await Moralis.executeFunction(readOptions);
-console.log(message);
-// -> "Hello World"
 
 ///////////////////////////
 
@@ -182,7 +144,7 @@ async function httpRequestToSmartContract() {}
 const onSubmitTokenizeMe = async (e) => {};
 
 function ProjectCreation() {
-  const { authenticate, isAuthenticated, user } = useMoralis();
+  const { authenticate, isAuthenticated, user, enableWeb3 } = useMoralis();
 
   const classes = useStyles();
 
@@ -191,7 +153,7 @@ function ProjectCreation() {
   const userPFP = user?.get("profilePicture");
 
   const [name, setName] = useState("");
-  // const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [file, setFile] = useState("");
   const inputFileRef = React.useRef<HTMLInputElement | null>(null);
 
@@ -675,11 +637,11 @@ function ProjectCreation() {
   //     functionName: "message",
   //     abi: ABI,
   //   };
+  const Web3Api = useMoralisWeb3Api();
 
   const contractAddress = "0xE6D97d1aEaCb293Aa8Ae62EAe0Dfd7c8D8e0bdab";
-
-  // https://github.com/MoralisWeb3/react-moralis#useweb3executefunction
-  const { data, error, fetch, isFetching, isLoading } = useWeb3ExecuteFunction({
+ // https://github.com/MoralisWeb3/react-moralis#useweb3executefunction
+  const { data, error, fetch, isFetching } = useWeb3ExecuteFunction({
     abi: ABI,
     contractAddress: contractAddress,
     functionName: "symbol",
@@ -766,13 +728,21 @@ function ProjectCreation() {
     setIsLoading(false);
   };
 
+  const MoralisFetch = async () => {
+
+    await enableWeb3();
+
+    fetch()
+
+  }
+
   if (isAuthenticated)
     return (
       <>
         <div>hello</div>
         <div>
-            {error && <h1> Error </h1>}
-            <button onClick={() => fetch()} disabled={isFetching}>Fetch data</button>
+            {error && <h1> {error} </h1>}
+            <button onClick={ MoralisFetch }  disabled={isFetching}>Fetch data</button>
             {data && <pre>
             {JSON.stringify(data)}
             </pre>}
