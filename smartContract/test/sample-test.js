@@ -9,11 +9,9 @@ describe("WorkToken", function () {
     const workToken = await WorkToken.deploy();
     await workToken.deployed();
     
-    /*
     const TestERC20 = await ethers.getContractFactory("TestERC20");
     const testERC20 = await TestERC20.deploy(ethers.BigNumber.from("0xffffffffffffffffffffffffffffffff"));
     await testERC20.deployed();
-    */
 
     //await workToken.setTokenAddresses(testERC20.address);
 

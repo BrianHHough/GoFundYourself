@@ -1,0 +1,12 @@
+.logo {
+  left: 0;
+  margin-left: 20px;
+  position: relative;
+  font-size: 30pt;
+  font-weight: 650;
+  color: black;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

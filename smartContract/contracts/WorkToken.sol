@@ -16,6 +16,7 @@ struct ProjectCreator {
     uint256 jobTimeLimit;
     uint256[] jobsIssued;//?
     string tokenURI;
+    uint16 maxJobLevel;
     uint16 jobs;
     uint16 jobsMinted;
     uint16 jobsCompleted;
@@ -26,9 +27,9 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     AggregatorV3Interface internal ETHpriceFeed;
     AggregatorV3Interface internal MATICpriceFeed;
 
-    uint256 public startTotalJobCost;
     uint16 public jobLimit;
     uint256 public tokenCounter;
+    uint256[] public jobCostLevels;
     IERC20 public USDC;
     IERC20 public WMATIC;
     IERC20 public WETH;
@@ -45,16 +46,17 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     event ProjectCreatorCreateProject(string tokenURI);
     event FinishProject(uint256 jobIndex);
 
-    constructor() ERC721("WorkToken","WRK"){
+    constructor() ERC721("WorkToken","WORKT"){
         tokenCounter = 0;
-        startTotalJobCost = 55;
         jobLimit = 50;
         ETHpriceFeed = AggregatorV3Interface(0x0715A7794a1dc8e42615F059dD6e406A6594651A);
         MATICpriceFeed = AggregatorV3Interface(0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada);
         USDC = IERC20(0xe11A86849d99F524cAC3E7A0Ec1241828e332C62);
         WMATIC = IERC20(0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889);//0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa
-        WETH = IERC20(0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889);
+        WETH = IERC20(0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889);//275
+        jobCostLevels = [0, 55, 275, 1375, 6875];
     }
+
     modifier tokenOwner(uint256 jobIndex) {
       require(msg.sender == ownerOf(jobIndex));
       _;
@@ -110,6 +112,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     function mintNFT(address projectCreatorAddress, uint16 t) public {
         currency cur = currency(t); 
         require(projectCreators[projectCreatorAddress].jobsMinted <= projectCreators[projectCreatorAddress].jobs);
+        require(msg.sender != projectCreatorAddress);
         tokenIdToStatus[tokenCounter] = tokenStatus(0);
         tokenIdToProjectCreator[tokenCounter] = projectCreatorAddress;
         tokenIdToExpiryTime[tokenCounter] = block.timestamp + projectCreators[projectCreatorAddress].jobTimeLimit;
@@ -136,14 +139,16 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     }
 
     function newProjectCreator(uint16 jobs, uint256 jobTimeLimit, string memory tokenURI) public {
-        require(projectCreators[msg.sender].totalJobCost == 0);//make sure ProjectCreator does not exest
-        projectCreators[msg.sender].totalJobCost = startTotalJobCost;
-        projectCreatorChangeJob(jobs, jobTimeLimit, tokenURI);
+        require(projectCreators[msg.sender].maxJobLevel == 0);//make sure ProjectCreator does not exest
+        projectCreators[msg.sender].maxJobLevel = 1;
+        projectCreatorChangeJob(jobs, jobTimeLimit, 1, tokenURI);
     }
 
-    function projectCreatorChangeJob(uint16 jobs, uint256 jobTimeLimit, string memory tokenURI) public {
+    function projectCreatorChangeJob(uint16 jobs, uint256 jobTimeLimit, uint16 jobLevel, string memory tokenURI) public {
         require(jobs <= jobLimit && jobs > 0);
-        require(projectCreators[msg.sender].totalJobCost != 0);//make sure ProjectCreator exests
+        require(projectCreators[msg.sender].maxJobLevel != 0);//make sure ProjectCreator exests
+        require(jobLevel >= projectCreators[msg.sender].maxJobLevel);
+        projectCreators[msg.sender].totalJobCost = jobCostLevels[jobLevel];
         projectCreators[msg.sender].jobs = jobs;
         projectCreators[msg.sender].jobTimeLimit = jobTimeLimit;
         projectCreators[msg.sender].tokenURI = tokenURI;
@@ -169,7 +174,7 @@ contract WorkToken is Ownable, ERC721URIStorage, KeeperCompatibleInterface{
     
     function upgradeProjectCreator() public {
         require(projectCreators[msg.sender].jobsCompleted == projectCreators[msg.sender].jobs);
-        projectCreators[msg.sender].totalJobCost = projectCreators[msg.sender].totalJobCost * 5;
+        projectCreators[msg.sender].maxJobLevel = projectCreators[msg.sender].maxJobLevel + 1;
         projectCreators[msg.sender].jobsCompleted = 0;
         
     }

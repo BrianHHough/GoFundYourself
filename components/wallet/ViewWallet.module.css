@@ -1,0 +1,16 @@
+.container{
+    color: black;
+    width: 30vw;
+    height: 8vh;
+    border: 5px black solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .title {
+    margin: 15px 0 15px 0;
+  }
