@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { makeStyles } from "@material-ui/core/styles";
-import Moralis, { useMoralis } from "react-moralis";
+import Moralis, { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import Logo from "../assets/Logos/LOGO_gofundyourself.png";
 
 import { BodyCon } from "../components/HomePage/HomePageElements";
@@ -109,6 +109,78 @@ const steps = [
   },
 ];
 
+// Step 1: Create Json of all variable
+// Step 2: Post Json to IPFS
+// Step 3: execute the contract
+
+////////////////////////////////////////
+
+const ABI = [
+  {
+    inputs: [],
+    name: "message",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_newMessage",
+        type: "string",
+      },
+    ],
+    name: "setMessage",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
+
+const readOptions = {
+  contractAddress: "0xe...56",
+  functionName: "message",
+  abi: ABI,
+};
+
+const message = await Moralis.executeFunction(readOptions);
+console.log(message);
+// -> "Hello World"
+
+///////////////////////////
+
+async function storeJsonToIPFS() {
+  const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
+  if (!token) {
+    throw new Error("No NFT Storage token");
+  }
+  debugger;
+  if (!file) {
+    throw new Error("No file");
+  }
+
+  const client = new NFTStorage({ token: token });
+
+  const cid = await client.storeDirectory([file]);
+  const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`;
+  console.log(cid, gatewayUrl);
+  return {
+    cid,
+    gatewayUrl,
+  };
+}
+
+async function httpRequestToSmartContract() {}
+
+const onSubmitTokenizeMe = async (e) => {};
+
 function ProjectCreation() {
   const { authenticate, isAuthenticated, user } = useMoralis();
 
@@ -119,7 +191,7 @@ function ProjectCreation() {
   const userPFP = user?.get("profilePicture");
 
   const [name, setName] = useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
+  // const [isLoading, setIsLoading] = React.useState(false);
   const [file, setFile] = useState("");
   const inputFileRef = React.useRef<HTMLInputElement | null>(null);
 
@@ -128,6 +200,495 @@ function ProjectCreation() {
   const [value, setValue] = React.useState<
     number | string | Array<number | string>
   >(30);
+
+  ///////////////// MORALIS Function Calll //////////////////
+
+  const ABI = [
+    { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "approved",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "Approval",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "operator",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "bool",
+          name: "approved",
+          type: "bool",
+        },
+      ],
+      name: "ApprovalForAll",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "jobIndex",
+          type: "uint256",
+        },
+      ],
+      name: "FinishProject",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "string",
+          name: "tokenURI",
+          type: "string",
+        },
+      ],
+      name: "MintNFT",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "previousOwner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "newOwner",
+          type: "address",
+        },
+      ],
+      name: "OwnershipTransferred",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "string",
+          name: "tokenURI",
+          type: "string",
+        },
+      ],
+      name: "ProjectCreatorCreateProject",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "from",
+          type: "address",
+        },
+        { indexed: true, internalType: "address", name: "to", type: "address" },
+        {
+          indexed: true,
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "Transfer",
+      type: "event",
+    },
+    {
+      inputs: [],
+      name: "USDC",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "WETH",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "WMATIC",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      name: "approve",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "jobIndex", type: "uint256" }],
+      name: "badJob",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "address", name: "owner", type: "address" }],
+      name: "balanceOf",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "bytes", name: "", type: "bytes" }],
+      name: "checkUpkeep",
+      outputs: [
+        { internalType: "bool", name: "upkeepNeeded", type: "bool" },
+        { internalType: "bytes", name: "performData", type: "bytes" },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "jobIndex", type: "uint256" }],
+      name: "completeJob",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "getApproved",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "projectCreatorAddress",
+          type: "address",
+        },
+      ],
+      name: "getProjectCreator",
+      outputs: [
+        {
+          components: [
+            { internalType: "uint256", name: "totalJobCost", type: "uint256" },
+            { internalType: "uint256", name: "jobTimeLimit", type: "uint256" },
+            {
+              internalType: "uint256[]",
+              name: "jobsIssued",
+              type: "uint256[]",
+            },
+            { internalType: "string", name: "tokenURI", type: "string" },
+            { internalType: "uint16", name: "jobs", type: "uint16" },
+            { internalType: "uint16", name: "jobsMinted", type: "uint16" },
+            { internalType: "uint16", name: "jobsCompleted", type: "uint16" },
+          ],
+          internalType: "struct ProjectCreator",
+          name: "",
+          type: "tuple",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "getProjectStatus",
+      outputs: [
+        { internalType: "enum WorkToken.tokenStatus", name: "", type: "uint8" },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "getProjectURI",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "owner", type: "address" },
+        { internalType: "address", name: "operator", type: "address" },
+      ],
+      name: "isApprovedForAll",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "jobLimit",
+      outputs: [{ internalType: "uint16", name: "", type: "uint16" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "projectCreatorAddress",
+          type: "address",
+        },
+        { internalType: "uint16", name: "t", type: "uint16" },
+      ],
+      name: "mintNFT",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "name",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "uint16", name: "jobs", type: "uint16" },
+        { internalType: "uint256", name: "jobTimeLimit", type: "uint256" },
+        { internalType: "string", name: "tokenURI", type: "string" },
+      ],
+      name: "newProjectCreator",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "owner",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "ownerOf",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "bytes", name: "performData", type: "bytes" }],
+      name: "performUpkeep",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "uint16", name: "jobs", type: "uint16" },
+        { internalType: "uint256", name: "jobTimeLimit", type: "uint256" },
+        { internalType: "string", name: "tokenURI", type: "string" },
+      ],
+      name: "projectCreatorChangeJob",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "address", name: "", type: "address" }],
+      name: "projectCreators",
+      outputs: [
+        { internalType: "uint256", name: "totalJobCost", type: "uint256" },
+        { internalType: "uint256", name: "jobTimeLimit", type: "uint256" },
+        { internalType: "string", name: "tokenURI", type: "string" },
+        { internalType: "uint16", name: "jobs", type: "uint16" },
+        { internalType: "uint16", name: "jobsMinted", type: "uint16" },
+        { internalType: "uint16", name: "jobsCompleted", type: "uint16" },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "renounceOwnership",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "from", type: "address" },
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      name: "safeTransferFrom",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "from", type: "address" },
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+        { internalType: "bytes", name: "_data", type: "bytes" },
+      ],
+      name: "safeTransferFrom",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "operator", type: "address" },
+        { internalType: "bool", name: "approved", type: "bool" },
+      ],
+      name: "setApprovalForAll",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "startTotalJobCost",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
+      name: "supportsInterface",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "symbol",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "tokenCounter",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      name: "tokenIdToExpiryTime",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      name: "tokenIdToProjectCreator",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      name: "tokenIdToStatus",
+      outputs: [
+        { internalType: "enum WorkToken.tokenStatus", name: "", type: "uint8" },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "tokenURI",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "from", type: "address" },
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      name: "transferFrom",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
+      name: "transferOwnership",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "upgradeProjectCreator",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+  ];
+
+  //   const readOptions = {
+  //     contractAddress: "0xe...56",
+  //     functionName: "message",
+  //     abi: ABI,
+  //   };
+
+  const contractAddress = "0xE6D97d1aEaCb293Aa8Ae62EAe0Dfd7c8D8e0bdab";
+
+  // https://github.com/MoralisWeb3/react-moralis#useweb3executefunction
+  const { data, error, fetch, isFetching, isLoading } = useWeb3ExecuteFunction({
+    abi: ABI,
+    contractAddress: contractAddress,
+    functionName: "symbol",
+    // params: {
+    //   secondsAgos: [0, 10],
+    // },
+  });
+
+  /////////////////////////////////////////////////////////
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue);
@@ -205,13 +766,21 @@ function ProjectCreation() {
     setIsLoading(false);
   };
 
-  if (!isAuthenticated)
+  if (isAuthenticated)
     return (
       <>
         <div>hello</div>
+        <div>
+            {error && <h1> Error </h1>}
+            <button onClick={() => fetch()} disabled={isFetching}>Fetch data</button>
+            {data && <pre>
+            {JSON.stringify(data)}
+            </pre>}
+        </div>)
+
       </>
     );
-  if (isAuthenticated)
+  if (!isAuthenticated)
     return (
       <>
         <div className={styles.container}>
@@ -445,6 +1014,7 @@ function ProjectCreation() {
                   ))}
 
                 {/* Give up your services list */}
+                {/*FIX THIS SERVICE FEATURE */}
                 {(activeStep === 4 &&
                   (userPFP == null || undefined ? (
                     <>
@@ -452,39 +1022,41 @@ function ProjectCreation() {
                         Choose your services list
                       </ProfileEditsTitle>
                       <div className={classes.root2}>
-                      <Grid container spacing={2}>
-                      <Grid item xs>
-                        <Card  sx={{ maxWidth: 200 }}>
-                          <CardActionArea href="">
-                            <CardMedia
-                              component="img"
-                              alt="Dog"
-                              height="100"
-                              image="https://www.newshub.co.nz/home/lifestyle/2019/11/dog-years-are-a-myth-2-year-old-dogs-already-middle-aged-scientists/_jcr_content/par/video/image.dynimg.1280.q75.jpg/v1574572358818/GETTY-labrador-puppy-1120.jpg"
-                            />
-                            <CardContent >
-                              <Typography align="center" >Click me!</Typography>
-                            </CardContent>
-                          </CardActionArea>
-                        </Card>
-                        </Grid>
-                        <Grid item xs>
-                        <Card sx={{ maxWidth: 200 }}>
-                          <CardActionArea href="">
-                            <CardMedia
-                              component="img"
-                              alt="green iguana"
-                              height="100"
-                              image="https://www.newshub.co.nz/home/lifestyle/2019/11/dog-years-are-a-myth-2-year-old-dogs-already-middle-aged-scientists/_jcr_content/par/video/image.dynimg.1280.q75.jpg/v1574572358818/GETTY-labrador-puppy-1120.jpg"
-                            />
-                            <CardContent>
-                              <Typography align="center" >Click me!</Typography>
-                            </CardContent>
-                          </CardActionArea>
-                        </Card>
-                        </Grid>
-                       
-                        
+                        <Grid container spacing={2}>
+                          <Grid item xs>
+                            <Card sx={{ maxWidth: 200 }}>
+                              <CardActionArea href="">
+                                <CardMedia
+                                  component="img"
+                                  alt="Dog"
+                                  height="100"
+                                  image="https://www.newshub.co.nz/home/lifestyle/2019/11/dog-years-are-a-myth-2-year-old-dogs-already-middle-aged-scientists/_jcr_content/par/video/image.dynimg.1280.q75.jpg/v1574572358818/GETTY-labrador-puppy-1120.jpg"
+                                />
+                                <CardContent>
+                                  <Typography align="center">
+                                    Click me!
+                                  </Typography>
+                                </CardContent>
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+                          <Grid item xs>
+                            <Card sx={{ maxWidth: 200 }}>
+                              <CardActionArea href="">
+                                <CardMedia
+                                  component="img"
+                                  alt="green iguana"
+                                  height="100"
+                                  image="https://www.newshub.co.nz/home/lifestyle/2019/11/dog-years-are-a-myth-2-year-old-dogs-already-middle-aged-scientists/_jcr_content/par/video/image.dynimg.1280.q75.jpg/v1574572358818/GETTY-labrador-puppy-1120.jpg"
+                                />
+                                <CardContent>
+                                  <Typography align="center">
+                                    Click me!
+                                  </Typography>
+                                </CardContent>
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
                         </Grid>
                       </div>
                     </>
@@ -507,7 +1079,7 @@ function ProjectCreation() {
                         When will the token Expire?
                       </ProfileEditsTitle>
                       <div className={classes.root}>
-                      <Box sx={{ width: 250 }}>
+                        <Box sx={{ width: 250 }}>
                           <Typography id="input-slider" gutterBottom>
                             Token Expiration Date (Days)
                           </Typography>
@@ -536,7 +1108,6 @@ function ProjectCreation() {
                             </Grid>
                           </Grid>
                         </Box>
-                        
                       </div>
                     </>
                   ) : (
