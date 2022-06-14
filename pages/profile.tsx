@@ -63,9 +63,6 @@ const useStyles = makeStyles((theme) => ({
         //   marginTop: "20px"
         // left: "50%",
         // transform: "translateX(-30%)",
-        position: "relative",
-    },
-    imagePreview: {
         // left: "50%",
         // transform: "translateX(-50%)",
         // position: "relative",
@@ -102,9 +99,9 @@ function Profile () {
     } = useMoralis();
 
     const { saveFile, moralisFile } = useMoralisFile();
-    const [photoFile, setPhotoFile] = useState();
+    const [photoFile, setPhotoFile] = useState(null); //selectedImage, setSelectedImage
     const [photoFileName, setPhotoFileName] = useState();
-    const [profilePicture, setProfilePicture] = useState();
+    const [profilePicture, setProfilePicture] = useState(); //imageUrl, setImageUrl
     const [profileName, setProfileName] = useState("");
     const [profileDo, setProfileDo] = useState("");
     const [profileLocation, setProfileLocation] = useState("");
@@ -247,6 +244,15 @@ function Profile () {
         setFile(e.target.files[0]);
       };
      
+    useEffect(() => {
+        if (photoFile) {
+            setProfilePicture(URL.createObjectURL(photoFile));
+        }
+    }, [photoFile]);
+
+   // const [photoFile, setPhotoFile] = useState(null); //selectedImage, setSelectedImage
+   // const [photoFileName, setPhotoFileName] = useState();
+   // const [profilePicture, setProfilePicture] = useState(); //imageUrl, setImageUrl
 
     const onSubmitPhoto = async () => {
         const file: any = photoFile;
@@ -285,6 +291,8 @@ function Profile () {
         document.getElementById("submitProfileButton").childNodes[0].nodeValue="Submitted... Go to next step!"
 
     };
+
+
 
     // const onSubmitBio = async (e) => {
 

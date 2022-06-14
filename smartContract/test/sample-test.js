@@ -9,15 +9,16 @@ describe("WorkToken", function () {
     const workToken = await WorkToken.deploy();
     await workToken.deployed();
     
+    /*
     const TestERC20 = await ethers.getContractFactory("TestERC20");
     const testERC20 = await TestERC20.deploy(ethers.BigNumber.from("0xffffffffffffffffffffffffffffffff"));
     await testERC20.deployed();
-
+    
     //await workToken.setTokenAddresses(testERC20.address);
 
     const tx0 = await testERC20.transfer(addr2.address, ethers.BigNumber.from("0xfffffffffffffffffffffffff"))
     await tx0.wait();
-
+    */
     //const bal = await testERC20.balanceOf(addr2.address);
     //console.log(bal / 10 ** 18)
     //console.log('erc20 address ', testERC20.address)
