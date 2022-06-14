@@ -746,7 +746,7 @@ function ProjectCreation() {
             {data && <pre>
             {JSON.stringify(data)}
             </pre>}
-        </div>)
+        </div>
 
       </>
     );
