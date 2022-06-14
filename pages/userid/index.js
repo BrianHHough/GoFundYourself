@@ -5,8 +5,13 @@ import EditProfile from "../../components/editProfile/EditProfile.js";
 import ViewWallet from "../../components/wallet/ViewWallet";
 import ViewNetwork from "../../components/network/ViewNetwork";
 import classes from "./index.module.css";
+import { useRouter } from 'next/router'
 
 const ProfileUserPage = () => {
+  const router = useRouter()
+  console.log(router.query);
+
+  
   return (
     <div className={classes.container}>
       <section className={classes.sectionLeft}>
