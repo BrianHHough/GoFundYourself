@@ -340,7 +340,7 @@ function Profile () {
         {activeStep === steps.length && (
             <Paper square elevation={0} sx={{ p: 3 }}>
             <Typography>All steps completed - you&apos;re finished</Typography>
-            <Link  href={{ pathname: '/userid', query: { keyword: 'this way' } }}  passHref>
+            <Link  href={{ pathname: '/userid', query: { keyword: 'F way' } }}  passHref>
             <NavBarConnectWallet>
                 Go to profile
             </NavBarConnectWallet>

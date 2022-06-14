@@ -26,7 +26,7 @@ const PublicBio = () => {
           <Link href="/">Browse Projects</Link>
         </div>
         <div className={classes.lastFrame}>
-          <Link href="/">
+          <Link href="/projectCreation">
             <AddCircleIcon
               sx={{ fontSize: 80 }}
               style={{ cursor: "pointer" }}

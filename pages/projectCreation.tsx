@@ -1114,6 +1114,51 @@ function ProjectCreation() {
                   ) : (
                     ""
                   ))}
+
+                    
+                {/* Give up your services list */}
+                {/*FIX THIS SERVICE FEATURE */}
+                {(activeStep === 6 &&
+                  (null == null || undefined ? (
+                    <>
+                      <ProfileEditsTitle>
+                        Choose your services list
+                      </ProfileEditsTitle>
+                      <div className={classes.root2}>
+                        <Grid container spacing={2}>
+                          <Grid item xs>
+                            <Card sx={{ maxWidth: 200 }}>
+                              <CardActionArea href="">
+                                <CardMedia
+                                  component="img"
+                                  alt="Dog"
+                                  height="100"
+                                  image="https://www.newshub.co.nz/home/lifestyle/2019/11/dog-years-are-a-myth-2-year-old-dogs-already-middle-aged-scientists/_jcr_content/par/video/image.dynimg.1280.q75.jpg/v1574572358818/GETTY-labrador-puppy-1120.jpg"
+                                />
+                                <CardContent>
+                                  <Typography align="center">
+                                    Check https://mumbai.polygonscan.com/address/0x8B5A02E7e584f5E6CFdB7520912B9533cfD6525c
+                                  </Typography>
+                                </CardContent>
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    </>
+                  ) : (
+                    ""
+                  ))) ||
+                  (userPFP > 0 ? (
+                    <ProfileEditsTitle>
+                      You already have a profile picture:
+                    </ProfileEditsTitle>
+                  ) : (
+                    ""
+                  ))}
+
+
+
               </ProfileEditsCon>
             </ColumnRight>
           </ColumnCon>
