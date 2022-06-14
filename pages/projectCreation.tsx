@@ -4,7 +4,11 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { makeStyles } from "@material-ui/core/styles";
-import Moralis, { useMoralis, useWeb3ExecuteFunction, useMoralisWeb3Api } from "react-moralis";
+import Moralis, {
+  useMoralis,
+  useWeb3ExecuteFunction,
+  useMoralisWeb3Api,
+} from "react-moralis";
 import Logo from "../assets/Logos/LOGO_gofundyourself.png";
 
 import { BodyCon } from "../components/HomePage/HomePageElements";
@@ -43,6 +47,10 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
+import {
+  NavBarCon, NavBarLogo, NavBarConnectWallet
+} from "../components/NavBar/NavBarElements"
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,7 +123,6 @@ const steps = [
 
 ////////////////////////////////////////
 
-
 ///////////////////////////
 
 async function storeJsonToIPFS() {
@@ -165,7 +172,475 @@ function ProjectCreation() {
 
   ///////////////// MORALIS Function Calll //////////////////
 
-  const ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"jobIndex","type":"uint256"}],"name":"FinishProject","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"tokenURI","type":"string"}],"name":"MintNFT","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"tokenURI","type":"string"}],"name":"ProjectCreatorCreateProject","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"USDC","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WMATIC","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"jobIndex","type":"uint256"}],"name":"badJob","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes","name":"","type":"bytes"}],"name":"checkUpkeep","outputs":[{"internalType":"bool","name":"upkeepNeeded","type":"bool"},{"internalType":"bytes","name":"performData","type":"bytes"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"jobIndex","type":"uint256"}],"name":"completeJob","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"projectCreatorAddress","type":"address"}],"name":"getProjectCreator","outputs":[{"components":[{"internalType":"uint256","name":"totalJobCost","type":"uint256"},{"internalType":"uint256","name":"jobTimeLimit","type":"uint256"},{"internalType":"uint256[]","name":"jobsIssued","type":"uint256[]"},{"internalType":"string","name":"tokenURI","type":"string"},{"internalType":"uint16","name":"maxJobLevel","type":"uint16"},{"internalType":"uint16","name":"jobs","type":"uint16"},{"internalType":"uint16","name":"jobsMinted","type":"uint16"},{"internalType":"uint16","name":"jobsCompleted","type":"uint16"}],"internalType":"struct ProjectCreator","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getProjectStatus","outputs":[{"internalType":"enum WorkToken.tokenStatus","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getProjectURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"jobCostLevels","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"jobLimit","outputs":[{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"projectCreatorAddress","type":"address"},{"internalType":"uint16","name":"t","type":"uint16"}],"name":"mintNFT","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint16","name":"jobs","type":"uint16"},{"internalType":"uint256","name":"jobTimeLimit","type":"uint256"},{"internalType":"string","name":"tokenURI","type":"string"}],"name":"newProjectCreator","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes","name":"performData","type":"bytes"}],"name":"performUpkeep","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"jobs","type":"uint16"},{"internalType":"uint256","name":"jobTimeLimit","type":"uint256"},{"internalType":"uint16","name":"jobLevel","type":"uint16"},{"internalType":"string","name":"tokenURI","type":"string"}],"name":"projectCreatorChangeJob","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"projectCreators","outputs":[{"internalType":"uint256","name":"totalJobCost","type":"uint256"},{"internalType":"uint256","name":"jobTimeLimit","type":"uint256"},{"internalType":"string","name":"tokenURI","type":"string"},{"internalType":"uint16","name":"maxJobLevel","type":"uint16"},{"internalType":"uint16","name":"jobs","type":"uint16"},{"internalType":"uint16","name":"jobsMinted","type":"uint16"},{"internalType":"uint16","name":"jobsCompleted","type":"uint16"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"tokenCounter","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"tokenIdToExpiryTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"tokenIdToProjectCreator","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"tokenIdToStatus","outputs":[{"internalType":"enum WorkToken.tokenStatus","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"upgradeProjectCreator","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+  const ABI = [
+    { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "approved",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "Approval",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "operator",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "bool",
+          name: "approved",
+          type: "bool",
+        },
+      ],
+      name: "ApprovalForAll",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "jobIndex",
+          type: "uint256",
+        },
+      ],
+      name: "FinishProject",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "string",
+          name: "tokenURI",
+          type: "string",
+        },
+      ],
+      name: "MintNFT",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "previousOwner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "newOwner",
+          type: "address",
+        },
+      ],
+      name: "OwnershipTransferred",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "string",
+          name: "tokenURI",
+          type: "string",
+        },
+      ],
+      name: "ProjectCreatorCreateProject",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "from",
+          type: "address",
+        },
+        { indexed: true, internalType: "address", name: "to", type: "address" },
+        {
+          indexed: true,
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "Transfer",
+      type: "event",
+    },
+    {
+      inputs: [],
+      name: "USDC",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "WETH",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "WMATIC",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      name: "approve",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "jobIndex", type: "uint256" }],
+      name: "badJob",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "address", name: "owner", type: "address" }],
+      name: "balanceOf",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "bytes", name: "", type: "bytes" }],
+      name: "checkUpkeep",
+      outputs: [
+        { internalType: "bool", name: "upkeepNeeded", type: "bool" },
+        { internalType: "bytes", name: "performData", type: "bytes" },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "jobIndex", type: "uint256" }],
+      name: "completeJob",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "getApproved",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "projectCreatorAddress",
+          type: "address",
+        },
+      ],
+      name: "getProjectCreator",
+      outputs: [
+        {
+          components: [
+            { internalType: "uint256", name: "totalJobCost", type: "uint256" },
+            { internalType: "uint256", name: "jobTimeLimit", type: "uint256" },
+            {
+              internalType: "uint256[]",
+              name: "jobsIssued",
+              type: "uint256[]",
+            },
+            { internalType: "string", name: "tokenURI", type: "string" },
+            { internalType: "uint16", name: "maxJobLevel", type: "uint16" },
+            { internalType: "uint16", name: "jobs", type: "uint16" },
+            { internalType: "uint16", name: "jobsMinted", type: "uint16" },
+            { internalType: "uint16", name: "jobsCompleted", type: "uint16" },
+          ],
+          internalType: "struct ProjectCreator",
+          name: "",
+          type: "tuple",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "getProjectStatus",
+      outputs: [
+        { internalType: "enum WorkToken.tokenStatus", name: "", type: "uint8" },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "getProjectURI",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "owner", type: "address" },
+        { internalType: "address", name: "operator", type: "address" },
+      ],
+      name: "isApprovedForAll",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      name: "jobCostLevels",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "jobLimit",
+      outputs: [{ internalType: "uint16", name: "", type: "uint16" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "projectCreatorAddress",
+          type: "address",
+        },
+        { internalType: "uint16", name: "t", type: "uint16" },
+      ],
+      name: "mintNFT",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "name",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "uint16", name: "jobs", type: "uint16" },
+        { internalType: "uint256", name: "jobTimeLimit", type: "uint256" },
+        { internalType: "string", name: "tokenURI", type: "string" },
+      ],
+      name: "newProjectCreator",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "owner",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "ownerOf",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "bytes", name: "performData", type: "bytes" }],
+      name: "performUpkeep",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "uint16", name: "jobs", type: "uint16" },
+        { internalType: "uint256", name: "jobTimeLimit", type: "uint256" },
+        { internalType: "uint16", name: "jobLevel", type: "uint16" },
+        { internalType: "string", name: "tokenURI", type: "string" },
+      ],
+      name: "projectCreatorChangeJob",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "address", name: "", type: "address" }],
+      name: "projectCreators",
+      outputs: [
+        { internalType: "uint256", name: "totalJobCost", type: "uint256" },
+        { internalType: "uint256", name: "jobTimeLimit", type: "uint256" },
+        { internalType: "string", name: "tokenURI", type: "string" },
+        { internalType: "uint16", name: "maxJobLevel", type: "uint16" },
+        { internalType: "uint16", name: "jobs", type: "uint16" },
+        { internalType: "uint16", name: "jobsMinted", type: "uint16" },
+        { internalType: "uint16", name: "jobsCompleted", type: "uint16" },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "renounceOwnership",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "from", type: "address" },
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      name: "safeTransferFrom",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "from", type: "address" },
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+        { internalType: "bytes", name: "_data", type: "bytes" },
+      ],
+      name: "safeTransferFrom",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "operator", type: "address" },
+        { internalType: "bool", name: "approved", type: "bool" },
+      ],
+      name: "setApprovalForAll",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
+      name: "supportsInterface",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "symbol",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "tokenCounter",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      name: "tokenIdToExpiryTime",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      name: "tokenIdToProjectCreator",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      name: "tokenIdToStatus",
+      outputs: [
+        { internalType: "enum WorkToken.tokenStatus", name: "", type: "uint8" },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+      name: "tokenURI",
+      outputs: [{ internalType: "string", name: "", type: "string" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "address", name: "from", type: "address" },
+        { internalType: "address", name: "to", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      name: "transferFrom",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
+      name: "transferOwnership",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "upgradeProjectCreator",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+  ];
 
   //   const readOptions = {
   //     contractAddress: "0xe...56",
@@ -175,7 +650,7 @@ function ProjectCreation() {
   const Web3Api = useMoralisWeb3Api();
 
   const contractAddress = "0x8B5A02E7e584f5E6CFdB7520912B9533cfD6525c";
- // https://github.com/MoralisWeb3/react-moralis#useweb3executefunction
+  // https://github.com/MoralisWeb3/react-moralis#useweb3executefunction
   const { data, error, fetch, isFetching } = useWeb3ExecuteFunction({
     abi: ABI,
     contractAddress: contractAddress,
@@ -270,28 +745,30 @@ function ProjectCreation() {
   };
 
   const MoralisFetch = async () => {
-
     await enableWeb3();
 
-    fetch()
+    fetch();
+  };
 
-  }
-
-  if (isAuthenticated)
+  if (!isAuthenticated)
     return (
       <>
         <div>hello</div>
         <div>
-            {error && <h1>  <div>{JSON.stringify(error)}</div> </h1>}
-            <button onClick={ MoralisFetch }  disabled={isFetching}>Fetch data</button>
-            {data && <pre>
-            {JSON.stringify(data)}
-            </pre>}
+          {error && (
+            <h1>
+              {" "}
+              <div>{JSON.stringify(error)}</div>{" "}
+            </h1>
+          )}
+          <button onClick={MoralisFetch} disabled={isFetching}>
+            Fetch data
+          </button>
+          {data && <pre>{JSON.stringify(data)}</pre>}
         </div>
-
       </>
     );
-  if (!isAuthenticated)
+  if (isAuthenticated)
     return (
       <>
         <div className={styles.container}>
@@ -352,6 +829,12 @@ function ProjectCreation() {
                       <Typography>
                         All steps completed - you&apos;re finished
                       </Typography>
+                      <Button onClick={MoralisFetch} disabled={isFetching}>
+                        <NavBarConnectWallet>
+                          Mint me a project
+                        </NavBarConnectWallet>
+                      </Button>
+
                       <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
                         Reset
                       </Button>
@@ -365,7 +848,7 @@ function ProjectCreation() {
               <ProfileEditsCon>
                 {/* Add Project Title */}
                 {(activeStep === 0 &&
-                  (userPFP == null || undefined ? (
+                  (null == null || undefined ? (
                     <>
                       <ProfileEditsTitle>
                         Add your Project Title
@@ -395,7 +878,7 @@ function ProjectCreation() {
 
                 {/* Lets Get Your Photo Setup */}
                 {(activeStep === 1 &&
-                  (userPFP == null || undefined ? (
+                  (null == null || undefined ? (
                     <>
                       <ProfileEditsTitle>
                         Let's Get Your photo Setup
@@ -452,7 +935,7 @@ function ProjectCreation() {
 
                 {/* Tell Us about your pitch! */}
                 {(activeStep === 2 &&
-                  (userPFP == null || undefined ? (
+                  (null == null || undefined ? (
                     <>
                       <ProfileEditsTitle>Give us your pitch!</ProfileEditsTitle>
                       <div className={classes.root2}>
@@ -478,7 +961,7 @@ function ProjectCreation() {
 
                 {/* Token Allocation */}
                 {(activeStep === 3 &&
-                  (userPFP == null || undefined ? (
+                  (null == null || undefined ? (
                     <>
                       <ProfileEditsTitle>Token Allocation</ProfileEditsTitle>
                       <div className={classes.root}>
@@ -527,7 +1010,7 @@ function ProjectCreation() {
                 {/* Give up your services list */}
                 {/*FIX THIS SERVICE FEATURE */}
                 {(activeStep === 4 &&
-                  (userPFP == null || undefined ? (
+                  (null == null || undefined ? (
                     <>
                       <ProfileEditsTitle>
                         Choose your services list
@@ -584,7 +1067,7 @@ function ProjectCreation() {
 
                 {/* Set your token Expiration Date */}
                 {(activeStep === 5 &&
-                  (userPFP == null || undefined ? (
+                  (null == null || undefined ? (
                     <>
                       <ProfileEditsTitle>
                         When will the token Expire?
