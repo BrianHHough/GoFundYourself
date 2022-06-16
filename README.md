@@ -3,6 +3,8 @@
 Getting funding for your passion project, needs or dream doesn't have to be a nightmare!
 > check out our [live demo on Netlify](https://gofundyourself.netlify.app/)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/716993a7-614d-4cab-95f5-bc196982ab50/deploy-status)](https://app.netlify.com/sites/gofundyourself/deploys)
+
 ### Let's Funding Thoughtfully Go! LFTG!
 
 [Detailed Documentation Here](https://docs.google.com/document/d/1wJF1iTp9k4xQpQAkvgushlUUL4FbcLhFiTmBSbvpg60/edit?usp=sharing)
