@@ -255,6 +255,7 @@ function Profile () {
         await user?.save();
         
         //Change text on submit button after user submits their info
+        // @ts-ignore
         document.getElementById("submitProfileButton").childNodes[0].nodeValue="Submitted... Go to next step!"
 
     };
