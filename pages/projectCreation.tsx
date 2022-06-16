@@ -686,6 +686,7 @@ function ProjectCreation() {
 
   useEffect(() => {
     if (selectedImage) {
+      // @ts-ignore
       setImageUrl(URL.createObjectURL(selectedImage));
     }
   }, [selectedImage]);
