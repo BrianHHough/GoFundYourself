@@ -125,26 +125,26 @@ const steps = [
 
 ///////////////////////////
 
-async function storeJsonToIPFS() {
-  const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
-  if (!token) {
-    throw new Error("No NFT Storage token");
-  }
-  debugger;
-  if (!file) {
-    throw new Error("No file");
-  }
+// async function storeJsonToIPFS() {
+//   const token = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
+//   if (!token) {
+//     throw new Error("No NFT Storage token");
+//   }
+//   debugger;
+//   if (!file) {
+//     throw new Error("No file");
+//   }
 
-  const client = new NFTStorage({ token: token });
+//   const client = new NFTStorage({ token: token });
 
-  const cid = await client.storeDirectory([file]);
-  const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`;
-  console.log(cid, gatewayUrl);
-  return {
-    cid,
-    gatewayUrl,
-  };
-}
+//   const cid = await client.storeDirectory([file]);
+//   const gatewayUrl = `https://nftstorage.link/ipfs/${cid}/${file.name}`;
+//   console.log(cid, gatewayUrl);
+//   return {
+//     cid,
+//     gatewayUrl,
+//   };
+// }
 
 async function httpRequestToSmartContract() {}
 
