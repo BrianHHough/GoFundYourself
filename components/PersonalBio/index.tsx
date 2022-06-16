@@ -58,7 +58,7 @@ const PersonalBio = () => {
 
 
             <div style={{width: "100%", transform: "translateX(35%)", marginTop: "20px"}}>
-                <Image src={profilePicture} alt="logo" width="160" height="160" className={classes.imagePreview}/>
+                <Image src={profilePicture} alt="logo" width="160" height="160"/>
             </div>     *
       </div>
     </>
