@@ -212,6 +212,7 @@ function Profile () {
 
     useEffect(() => {
         if (photoFile) {
+            // @ts-ignore
             setProfilePicture(URL.createObjectURL(photoFile));
         }
     }, [photoFile]);
