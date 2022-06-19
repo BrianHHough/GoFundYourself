@@ -704,47 +704,7 @@ function ProjectCreation() {
     setActiveStep(0);
   };
 
-  const handleOnClick = async (e: React.MouseEvent<HTMLInputElement>) => {
-    /* Prevent form from submitting by default */
-    e.preventDefault();
-
-    /* If file is not selected, then show alert message */
-    if (!inputFileRef.current?.files?.length) {
-      alert("Please, select file you want to upload");
-      return;
-    }
-
-    setIsLoading(true);
-
-    /* Add files to FormData */
-    const formData = new FormData();
-    Object.values(inputFileRef.current.files).forEach((file) => {
-      formData.append("file", file);
-    });
-
-    /* Send request to our api route */
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const body = (await response.json()) as {
-      status: "ok" | "fail";
-      message: string;
-    };
-
-    alert(body.message);
-
-    if (body.status === "ok") {
-      inputFileRef.current.value = "";
-      // Do some stuff on successfully upload
-    } else {
-      // Do some stuff on error
-    }
-
-    setIsLoading(false);
-  };
-
+  
   const MoralisFetch = async () => {
     await enableWeb3();
 
@@ -882,7 +842,7 @@ function ProjectCreation() {
                   (null == null || undefined ? (
                     <>
                       <ProfileEditsTitle>
-                        Let's Get Your photo Setup
+                        Get Your photo Setup
                       </ProfileEditsTitle>
                       <div className={classes.root2}>
                         <FormGroup>
@@ -895,7 +855,7 @@ function ProjectCreation() {
                             >
                               <img
                                 src={imageUrl}
-                                alt={selectedImage.name}
+                                alt={selectedImage}
                                 height="100px"
                               />
                             </Box>
@@ -906,6 +866,7 @@ function ProjectCreation() {
                             id="select-image"
                             style={{ display: "none" }}
                             onChange={(e) =>
+                              // @ts-ignore
                               setSelectedImage(e.target.files[0])
                             }
                           />
