@@ -6,6 +6,7 @@ import { MoralisProvider } from "react-moralis";
 import Layout from "../components/Layout"
 
 
+
 function MyApp({ Component, pageProps }: { Component: any, pageProps: any }) {
   if (!process.env.NEXT_PUBLIC_MORALIS_APP_ID || !process.env.NEXT_PUBLIC_MORALIS_SERVER_URL) {
     return (

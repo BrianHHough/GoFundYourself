@@ -3,7 +3,7 @@ import Link from "next/link"
 import { useMoralis } from "react-moralis"
 import {  
     ProjectCardCon, ProjectCardImage, PercentComplete, ProjectCardViewButton
-} from "./ProjectElements"
+} from "../Projects/ProjectElements"
 import { styled } from '@mui/material/styles';
 
 import LinearProgress, { LinearProgressProps, linearProgressClasses } from '@mui/material/LinearProgress';

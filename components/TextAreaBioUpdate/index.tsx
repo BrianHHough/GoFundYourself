@@ -24,6 +24,7 @@ const TextAreaBioUpdate = ({ rows, cols, value, limit }) => {
         user?.set("profileBio", bio);
 
         await user?.save();
+        // @ts-ignore
         document.getElementById("submitBioButton").childNodes[0].nodeValue="Submitted... Go to next step!"
     };
 

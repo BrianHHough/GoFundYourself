@@ -212,6 +212,7 @@ function Profile () {
 
     useEffect(() => {
         if (photoFile) {
+            // @ts-ignore
             setProfilePicture(URL.createObjectURL(photoFile));
         }
     }, [photoFile]);
@@ -254,6 +255,7 @@ function Profile () {
         await user?.save();
         
         //Change text on submit button after user submits their info
+        // @ts-ignore
         document.getElementById("submitProfileButton").childNodes[0].nodeValue="Submitted... Go to next step!"
 
     };
@@ -373,7 +375,7 @@ function Profile () {
             </div>
             :
             <div style={{width: "100%", transform: "translateX(35%)", marginTop: "20px"}}>
-                <Image src={profilePicture} alt="logo" width="160" height="160" className={classes.imagePreview}/>
+                <Image src={profilePicture} alt="logo" width="160" height="160"/>
             </div>
             }
             <div style={{width: "100%"}}>

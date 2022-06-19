@@ -5,6 +5,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useMoralis } from "react-moralis";
 
+
 import {
   BodyCon, BodyHeaderCon, RandomizingHeader, SubHeader, PeopleBlobs, HomePageButtonConnectWallet, HomePageButtonConnectWalletInvert, 
   
@@ -58,6 +59,7 @@ function Home () {
           <link rel="icon" href="/favicon.ico" />
         </Head>
       </div>
+
       <BodyCon>
         <BodyHeaderCon>
           <RandomizingHeader>
@@ -290,6 +292,7 @@ function Home () {
           <link rel="icon" href="/favicon.ico" />
         </Head>
       </div>
+
       <BodyCon>
       <h1>Hey you are logged in!</h1>
       {projects.map((item, index) => (
