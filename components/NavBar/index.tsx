@@ -7,6 +7,8 @@ import {
     NavBarCon, NavBarLogo, NavBarConnectWallet
 } from "./NavBarElements"
 import Logo from "../../assets/Logos/LOGO_gofundyourself.png"
+
+import Warning from "../warning/Warning";
 namespace JSX {
     export interface Element {
         div: {[k: string]: any}
@@ -22,6 +24,8 @@ function NavBar (): JSX.Element[] | any {
         logout
     } = useMoralis();
     return (
+        <>
+         <Warning />
         <NavBarCon>
             <Link href="/" passHref>
                 <NavBarLogo>
@@ -42,6 +46,7 @@ function NavBar (): JSX.Element[] | any {
             }
 
         </NavBarCon>
+        </>
     )
 }
 
